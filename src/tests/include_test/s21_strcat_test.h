@@ -9,11 +9,14 @@
  *
  */
 
-#ifndef SRC_TESTS_INCLUDE_S21_STRCAT_TEST_H_
-#define SRC_TESTS_INCLUDE_S21_STRCAT_TEST_H_
+#ifndef SRC_TESTS_INCLUDE_TEST_S21_STRCAT_TEST_H_
+#define SRC_TESTS_INCLUDE_TEST_S21_STRCAT_TEST_H_
 
 #include <check.h>
+#include <string.h>
+
+#include "include/s21_strcat.h"
 
 Suite *s21_strcat_case_1(void);
 
-#endif  // SRC_TESTS_INCLUDE_S21_STRCAT_TEST_H_
+#endif  // SRC_TESTS_INCLUDE_TEST_S21_STRCAT_TEST_H_

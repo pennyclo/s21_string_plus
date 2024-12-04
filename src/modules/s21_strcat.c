@@ -11,4 +11,8 @@
 
 #include "include/s21_strcat.h"
 
-char *s21_strcat(char *dest, const char *src) {}
+char *s21_strcat(char *dest, const char *src) {
+  char *res = "Loool";
+
+  return res;
+}

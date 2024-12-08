@@ -18,7 +18,7 @@ int main(void) {
   SRunner *sr;
 
   sr = srunner_create(NULL);
-  // srunner_add_suite(sr, s21_strcat_case_1());
+  srunner_add_suite(sr, s21_strcat_case_1());
   srunner_add_suite(sr, s21_strlen_case_1());
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);

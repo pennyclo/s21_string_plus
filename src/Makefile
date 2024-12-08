@@ -16,6 +16,7 @@ DOCS_DIR 		:= ../docs
 OBJ_DIR 		:= ./obj
 OBJ_DIR_COV 	:= ./obj/cov
 REPORT_DIR 		:= ./report
+DEBUG_DIR		:= ./deb
 
 #=================================GCOVR_REPORT=================================#
 GCOVR_EXCLUDES  := --exclude='.*tests/.*|.*include/.*'
@@ -31,6 +32,7 @@ DVI 			:= dvi
 
 MAIN_TEST 		:= ./tests/main_test.c
 ALL_FILES 		:= $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
+DEBUG			:= debug
 
 #===============================FILES_IN_MODULES===============================#
 C_FILES 		:= $(shell find $(MODULES_DIR) -type f -name "*.c")
@@ -44,6 +46,10 @@ TEST_H 			:= $(shell find $(TESTS_DIR)/include_test -type f -name "*.h")
 TEST_O 			:= $(TEST_C:$(TESTS_DIR)/modules_test/%.c=$(OBJ_DIR)/tests/%.o)
 
 #==============================OBJECTIVE_TARGETS===============================#
+$(DEBUG): clean $(DEBUG_DIR) $(OBJ_DIR)/modules $(OBJ_FILES)
+	@$(CC) -g -I. debug.c -o $(DEBUG_DIR)/$@ $(OBJ_FILES)
+	@valgrind --tool=memcheck --leak-check=yes --track-origins=yes ./$(DEBUG_DIR)/$@
+
 $(OBJ_DIR)/modules/%.o: $(MODULES_DIR)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
@@ -94,6 +100,8 @@ $(OBJ_DIR_COV):
 $(REPORT_DIR):
 	mkdir -p $@
 
+$(DEBUG_DIR):
+	mkdir -p $@
 #===================================CLEAN======================================
 clean:
 	rm -rf $(DOCS_DIR)
@@ -103,6 +111,7 @@ clean:
 	rm -rf $(REPORT_DIR)
 	rm -rf $(OBJ_DIR_COV)
 	rm -f $(STATIC_LIB_COV)
+	rm -rf $(DEBUG_DIR)
 
 #================================CHECK_TARGETS=================================#
 cpplint: 

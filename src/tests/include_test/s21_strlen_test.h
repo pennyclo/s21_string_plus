@@ -15,6 +15,8 @@
 #include <check.h>
 #include <string.h>
 
+#include "include/s21_strlen.h"
+
 Suite *s21_strlen_case_1(void);
 
 #endif  // SRC_TESTS_INCLUDE_TEST_S21_STRLEN_TEST_H_

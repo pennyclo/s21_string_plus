@@ -1,7 +1,7 @@
 /**
  * @file s21_strcat_test.h
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief
+ * @brief Header file with function declaration s21_strcat_test.
  * @version 1.0
  * @date 2024-12-01
  *

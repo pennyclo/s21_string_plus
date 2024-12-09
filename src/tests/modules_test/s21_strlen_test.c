@@ -1,7 +1,7 @@
 /**
  * @file s21_strcat_test.c
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief
+ * @brief Implementation function s21_strlen_test.
  * @version 1.0
  * @date 2024-12-01
  *
@@ -10,8 +10,6 @@
  */
 
 #include "tests/include_test/s21_strlen_test.h"
-
-#include <stdio.h>
 
 START_TEST(s21_strlen_1) {
   const char *str = "";

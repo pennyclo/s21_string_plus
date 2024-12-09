@@ -1,49 +1,49 @@
 #===================================COMPILER===================================#
-PROJECT_NAME			:= s21_string
-CC				:= gcc
+PROJECT_NAME      := s21_string
+CC                := gcc
 
 #====================================FLAGS=====================================#
-CFLAGS 				:= -Wall -Wextra -std=c11 -pedantic -g -I.
-LDFLAGS				:= -lcheck -lsubunit -lm -I.
-COV_FLAGS			:= -fprofile-arcs -ftest-coverage
-VAL_FLAGS			:= --tool=memcheck --leak-cheack=yes
+CFLAGS            := -Wall -Wextra -std=c11 -pedantic -g -I.
+LDFLAGS           := -lcheck -lsubunit -lm -I.
+COV_FLAGS         := -fprofile-arcs -ftest-coverage
+VAL_FLAGS         := --tool=memcheck --leak-cheack=yes
 
 #===================================PATH_DIR===================================#
-MODULES_DIR			:= ./modules
-TESTS_DIR 			:= ./tests
-INCLUDE_DIR			:= ./include
-DOCS_DIR			:= ../docs
-OBJ_DIR				:= ./obj
-OBJ_DIR_COV			:= ./obj/cov
-REPORT_DIR			:= ./report
-DEBUG_DIR			:= ./deb
+MODULES_DIR       := ./modules
+TESTS_DIR         := ./tests
+INCLUDE_DIR       := ./include
+DOCS_DIR          := ../docs
+OBJ_DIR	          := ./obj
+OBJ_DIR_COV       := ./obj/cov
+REPORT_DIR        := ./report
+DEBUG_DIR         := ./deb
 
 #=================================GCOVR_REPORT=================================#
-GCOVR_EXCLUDES			:= --exclude='.*tests/.*|.*include/.*'
-GCOVR_HTML    			:= -r . $(GCOVR_EXCLUDES) --html --html-details -o $(REPORT_DIR)/coverage.html 
-GCOVR_TXT     			:= -r . $(GCOVR_EXCLUDES) --txt -o $(REPORT_DIR)/coverage.txt
+GCOVR_EXCLUDES    := --exclude='.*tests/.*|.*include/.*'
+GCOVR_HTML        := -r . $(GCOVR_EXCLUDES) --html --html-details -o $(REPORT_DIR)/coverage.html 
+GCOVR_TXT         := -r . $(GCOVR_EXCLUDES) --txt -o $(REPORT_DIR)/coverage.txt
 
 #===================================TARGETS====================================#
-STATIC_LIB 			:= $(PROJECT_NAME).a
-TEST 				:= test
-GCOV_REPORT			:= gcov_report
-STATIC_LIB_COV			:= $(PROJECT_NAME)_gcovr.a
-DVI				:= dvi
+STATIC_LIB        := $(PROJECT_NAME).a
+TEST              := test
+GCOV_REPORT       := gcov_report
+STATIC_LIB_COV    := $(PROJECT_NAME)_gcovr.a
+DVI               := dvi
 
-MAIN_TEST			:= ./tests/main_test.c
-ALL_FILES			:= $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
-DEBUG				:= debug
+MAIN_TEST         := ./tests/main_test.c
+ALL_FILES         := $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
+DEBUG             := debug
 
 #===============================FILES_IN_MODULES===============================#
-C_FILES				:= $(shell find $(MODULES_DIR) -type f -name "*.c")
-HEADERS				:= $(shell find $(INCLUDE_DIR) -type f -name "*.h")
-OBJ_FILES			:= $(C_FILES:$(MODULES_DIR)/%.c=$(OBJ_DIR)/modules/%.o)
-OBJ_FILES_COV			:= $(C_FILES:$(MODULES_DIR)/%.c=$(OBJ_DIR_COV)/%.o)
+C_FILES	          := $(shell find $(MODULES_DIR) -type f -name "*.c")
+HEADERS	          := $(shell find $(INCLUDE_DIR) -type f -name "*.h")
+OBJ_FILES         := $(C_FILES:$(MODULES_DIR)/%.c=$(OBJ_DIR)/modules/%.o)
+OBJ_FILES_COV     := $(C_FILES:$(MODULES_DIR)/%.c=$(OBJ_DIR_COV)/%.o)
 
 #================================FILES_IN_TESTS================================#
-TEST_C				:= $(shell find $(TESTS_DIR)/modules_test -type f -name "*.c")
-TEST_H				:= $(shell find $(TESTS_DIR)/include_test -type f -name "*.h")
-TEST_O				:= $(TEST_C:$(TESTS_DIR)/modules_test/%.c=$(OBJ_DIR)/tests/%.o)
+TEST_C            := $(shell find $(TESTS_DIR)/modules_test -type f -name "*.c")
+TEST_H            := $(shell find $(TESTS_DIR)/include_test -type f -name "*.h")
+TEST_O            := $(TEST_C:$(TESTS_DIR)/modules_test/%.c=$(OBJ_DIR)/tests/%.o)
 
 #==============================OBJECTIVE_TARGETS===============================#
 $(DEBUG): clean $(DEBUG_DIR) $(OBJ_DIR)/modules $(OBJ_FILES)

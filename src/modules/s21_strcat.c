@@ -11,7 +11,6 @@
 
 #include "include/s21_strcat.h"
 
-#include <stdio.h>
 #include <string.h>
 /**
  * @brief Concatenates two strings.

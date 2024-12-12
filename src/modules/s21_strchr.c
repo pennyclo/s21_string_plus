@@ -10,18 +10,31 @@
  */
 
 #include "include/s21_strchr.h"
-
+/**
+ * @brief Searches for the first occurrence of a character in a string.
+ *
+ * @param str Pointer to the null-terminated byte string to be scanned.
+ * @param c Character to be located. The value is passed as an int, but it is
+ * internally converted to a char.
+ * @return A pointer to the first occurrence of the character @p c in the string
+ * @p str, or @c S21_NULL if the character is not found. If @p c is a null
+ * character, the function returns a pointer to the terminating null character
+ * of @p str
+ *
+ * @note The function does not modify the string @p str.
+ */
 char *s21_strchr(const char *str, int c) {
-  char *res = s21_NULL;
-  int i = 0;
+  char *res = S21_NULL;
 
   if (*str) {
-    while (str[i]) {
+    int i = 0;
+    int find = 0;
+
+    for (; str[i] && !find; ++i) {
       if (str[i] == (char)c) {
         res = (char *)str + i;
-        break;
+        find = 1;
       }
-      ++i;
     }
 
     if (*str == '\0' && !*res) {

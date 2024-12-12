@@ -14,6 +14,7 @@
 
 #include "tests/include_test/s21_strcat_test.h"
 #include "tests/include_test/s21_strchr_test.h"
+#include "tests/include_test/s21_strcmp_test.h"
 #include "tests/include_test/s21_strlen_test.h"
 #include "tests/include_test/s21_strncat_test.h"
 

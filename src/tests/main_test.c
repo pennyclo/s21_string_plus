@@ -1,7 +1,7 @@
 /**
  * @file main_test.c
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief
+ * @brief Implementation function main_test.
  * @version 1.0
  * @date 2024-12-01
  *
@@ -13,6 +13,12 @@
 
 #include <stdlib.h>
 
+/**
+ * @brief Main function to run test suites and report the number of failed
+ * tests.
+ *
+ * @return int Returns EXIT_SUCCESS if all tests pass, otherwise EXIT_FAILURE.
+ */
 int main(void) {
   int number_failed = 0;
   SRunner *sr;
@@ -24,8 +30,9 @@ int main(void) {
   srunner_add_suite(sr, s21_strlen_case_1());
   srunner_add_suite(sr, s21_strncat_case_1());
   srunner_add_suite(sr, s21_strchr_case_1());
-#endif
   srunner_add_suite(sr, s21_strcmp_case_1());
+#endif
+  srunner_add_suite(sr, s21_strncmp_case_1());
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);
   srunner_free(sr);

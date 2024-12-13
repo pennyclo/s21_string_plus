@@ -1,7 +1,7 @@
 /**
  * @file main_test.h
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief
+ * @brief Header file with function declaration main_test.
  * @version 1.0
  * @date 2024-12-01
  *
@@ -17,5 +17,6 @@
 #include "tests/include_test/s21_strcmp_test.h"
 #include "tests/include_test/s21_strlen_test.h"
 #include "tests/include_test/s21_strncat_test.h"
+#include "tests/include_test/s21_strncmp_test.h"
 
 #endif  // SRC_TESTS_MAIN_TEST_H_

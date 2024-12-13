@@ -10,8 +10,6 @@
 
 #include "tests/include_test/s21_strcmp_test.h"
 
-#define BUFFER_SIZE 1024
-
 START_TEST(s21_strcmp_1) {
   const char *str1 = "Hello, world";
   const char *str2 = "Hello, world";

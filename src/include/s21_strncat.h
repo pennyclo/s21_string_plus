@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2024
  *
  */
+
 #ifndef SRC_INCLUDE_S21_STRNCAT_H_
 #define SRC_INCLUDE_S21_STRNCAT_H_
 

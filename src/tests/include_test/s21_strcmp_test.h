@@ -8,15 +8,15 @@
  * @copyright Copyright (c) 2024
  *
  */
+
 #ifndef SRC_TESTS_INCLUDE_TEST_S21_STRCMP_TEST_H_
 #define SRC_TESTS_INCLUDE_TEST_S21_STRCMP_TEST_H_
 
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strchr.h"
+#include "include/s21_strcmp.h"
 
 Suite *s21_strcmp_case_1(void);
-void comparison_func(char *dst, int ch);
 
 #endif  // SRC_TESTS_INCLUDE_TEST_S21_STRCMP_TEST_H_

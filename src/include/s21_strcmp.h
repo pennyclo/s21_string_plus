@@ -8,11 +8,11 @@
  * @copyright Copyright (c) 2024
  *
  */
+
 #ifndef SRC_INCLUDE_S21_STRCMP_H_
 #define SRC_INCLUDE_S21_STRCMP_H_
 
 #include "include/common.h"
-#include "include/s21_strlen.h"
 
 int s21_strcmp(const char *str1, const char *str2);
 

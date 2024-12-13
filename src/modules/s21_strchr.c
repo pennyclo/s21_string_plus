@@ -10,6 +10,7 @@
  */
 
 #include "include/s21_strchr.h"
+
 /**
  * @brief Searches for the first occurrence of a character in a string.
  *

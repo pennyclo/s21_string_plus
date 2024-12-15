@@ -17,8 +17,8 @@
 #define BUFFER_SIZE 50
 
 START_TEST(s21_strncat_1) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = "world";
   s21_size_t n = 3;
 
@@ -29,8 +29,8 @@ START_TEST(s21_strncat_1) {
 }
 
 START_TEST(s21_strncat_2) {
-  char *dst1 = "DBMfnb08, ";
-  char *dst2 = "DBMfnb08, ";
+  char dst1[BUFFER_SIZE] = "DBMfnb08, ";
+  char dst2[BUFFER_SIZE] = "DBMfnb08, ";
   const char *src = "LIFZCaB";
   s21_size_t n = 10;
 
@@ -41,8 +41,8 @@ START_TEST(s21_strncat_2) {
 }
 
 START_TEST(s21_strncat_3) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = "world";
   s21_size_t n = 0;
 
@@ -53,8 +53,8 @@ START_TEST(s21_strncat_3) {
 }
 
 START_TEST(s21_strncat_4) {
-  char *dst1 = "";
-  char *dst2 = "";
+  char dst1[BUFFER_SIZE] = "";
+  char dst2[BUFFER_SIZE] = "";
   const char *src = "world";
   s21_size_t n = 3;
 
@@ -65,8 +65,8 @@ START_TEST(s21_strncat_4) {
 }
 
 START_TEST(s21_strncat_5) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = "";
   s21_size_t n = 3;
 
@@ -77,8 +77,8 @@ START_TEST(s21_strncat_5) {
 }
 
 START_TEST(s21_strncat_6) {
-  char *dst1 = "";
-  char *dst2 = "";
+  char dst1[BUFFER_SIZE] = "";
+  char dst2[BUFFER_SIZE] = "";
   const char *src = "";
   s21_size_t n = 3;
 
@@ -89,8 +89,8 @@ START_TEST(s21_strncat_6) {
 }
 
 START_TEST(s21_strncat_7) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = "world";
   s21_size_t n = 50;
 
@@ -101,8 +101,8 @@ START_TEST(s21_strncat_7) {
 }
 
 START_TEST(s21_strncat_8) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = "world";
   s21_size_t n = 2;
 
@@ -113,8 +113,8 @@ START_TEST(s21_strncat_8) {
 }
 
 START_TEST(s21_strncat_9) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = "world";
   s21_size_t n = 5;
 
@@ -125,8 +125,8 @@ START_TEST(s21_strncat_9) {
 }
 
 START_TEST(s21_strncat_10) {
-  char *dst1 = "Hello, ";
-  char *dst2 = "Hello, ";
+  char dst1[BUFFER_SIZE] = "Hello, ";
+  char dst2[BUFFER_SIZE] = "Hello, ";
   const char *src = dst1 + 7;
   s21_size_t n = 3;
 
@@ -137,8 +137,8 @@ START_TEST(s21_strncat_10) {
 }
 
 START_TEST(s21_strncat_11) {
-  char *dst1 = "Goo\0dbye, ";
-  char *dst2 = "Goo\0dbye, ";
+  char dst1[BUFFER_SIZE] = "Goo\0dbye, ";
+  char dst2[BUFFER_SIZE] = "Goo\0dbye, ";
   const char *src = "universe";
   s21_size_t n = 4;
 
@@ -149,8 +149,8 @@ START_TEST(s21_strncat_11) {
 }
 
 START_TEST(s21_strncat_12) {
-  char *dst1 = "Goo\ndbye, ";
-  char *dst2 = "Goo\ndbye, ";
+  char dst1[BUFFER_SIZE] = "Goo\ndbye, ";
+  char dst2[BUFFER_SIZE] = "Goo\ndbye, ";
   const char *src = "universe";
   s21_size_t n = 10;
 
@@ -161,8 +161,8 @@ START_TEST(s21_strncat_12) {
 }
 
 START_TEST(s21_strncat_13) {
-  char *dst1 = "Goodbye, ";
-  char *dst2 = "Goodbye, ";
+  char dst1[BUFFER_SIZE] = "Goodbye, ";
+  char dst2[BUFFER_SIZE] = "Goodbye, ";
   const char *src = "universe";
   s21_size_t n = 0;
 
@@ -173,8 +173,8 @@ START_TEST(s21_strncat_13) {
 }
 
 START_TEST(s21_strncat_14) {
-  char *dst1 = "";
-  char *dst2 = "";
+  char dst1[BUFFER_SIZE] = "";
+  char dst2[BUFFER_SIZE] = "";
   const char *src = "universe";
   s21_size_t n = 4;
 
@@ -185,8 +185,8 @@ START_TEST(s21_strncat_14) {
 }
 
 START_TEST(s21_strncat_15) {
-  char *dst1 = "Goodbye, ";
-  char *dst2 = "Goodbye, ";
+  char dst1[BUFFER_SIZE] = "Goodbye, ";
+  char dst2[BUFFER_SIZE] = "Goodbye, ";
   const char *src = "";
   s21_size_t n = 4;
 
@@ -197,8 +197,8 @@ START_TEST(s21_strncat_15) {
 }
 
 START_TEST(s21_strncat_16) {
-  char *dst1 = "";
-  char *dst2 = "";
+  char dst1[BUFFER_SIZE] = "";
+  char dst2[BUFFER_SIZE] = "";
   const char *src = "";
   s21_size_t n = 4;
 
@@ -209,8 +209,8 @@ START_TEST(s21_strncat_16) {
 }
 
 START_TEST(s21_strncat_17) {
-  char *dst1 = "Goodbye, ";
-  char *dst2 = "Goodbye, ";
+  char dst1[BUFFER_SIZE] = "Goodbye, ";
+  char dst2[BUFFER_SIZE] = "Goodbye, ";
   const char *src = "universe";
   s21_size_t n = 100;
 
@@ -221,8 +221,8 @@ START_TEST(s21_strncat_17) {
 }
 
 START_TEST(s21_strncat_18) {
-  char *dst1 = "Goodbye, ";
-  char *dst2 = "Goodbye, ";
+  char dst1[BUFFER_SIZE] = "Goodbye, ";
+  char dst2[BUFFER_SIZE] = "Goodbye, ";
   const char *src = "universe";
   s21_size_t n = 2;
 
@@ -233,8 +233,8 @@ START_TEST(s21_strncat_18) {
 }
 
 START_TEST(s21_strncat_19) {
-  char *dst1 = "Goodbye, ";
-  char *dst2 = "Goodbye, ";
+  char dst1[BUFFER_SIZE] = "Goodbye, ";
+  char dst2[BUFFER_SIZE] = "Goodbye, ";
   const char *src = "universe";
   s21_size_t n = 8;
 
@@ -245,8 +245,8 @@ START_TEST(s21_strncat_19) {
 }
 
 START_TEST(s21_strncat_20) {
-  char *dst1 = "Goodbye, ";
-  char *dst2 = "Goodbye, ";
+  char dst1[BUFFER_SIZE] = "Goodbye, ";
+  char dst2[BUFFER_SIZE] = "Goodbye, ";
   const char *src = dst1 + 9;
   s21_size_t n = 3;
 

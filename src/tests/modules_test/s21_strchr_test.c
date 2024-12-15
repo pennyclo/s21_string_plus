@@ -73,6 +73,14 @@ START_TEST(s21_strchr_8) {
   comparison_func(dst, ch);
 }
 
+START_TEST(s21_strchr_9) {
+  const char str[] = "\0";  // Empty string
+  int c = 'a';              // Character NOT present in empty string.
+  char *result = s21_strchr(str, c);
+  ck_assert_ptr_null(
+      result);  // Standard strchr behavior is to return NULL, even if empty.
+}
+
 void comparison_func(char *dst, int ch) {
   char *expected = strchr(dst, ch);
   char *result = s21_strchr(dst, ch);
@@ -96,6 +104,7 @@ Suite *s21_strchr_case_1(void) {
   tcase_add_test(tc_s21_strchr, s21_strchr_6);
   tcase_add_test(tc_s21_strchr, s21_strchr_7);
   tcase_add_test(tc_s21_strchr, s21_strchr_8);
+  tcase_add_test(tc_s21_strchr, s21_strchr_9);
 
   suite_add_tcase(string, tc_s21_strchr);
 

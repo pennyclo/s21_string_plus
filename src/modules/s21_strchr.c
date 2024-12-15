@@ -37,10 +37,6 @@ char *s21_strchr(const char *str, int c) {
         find = 1;
       }
     }
-
-    if (*str == '\0' && !*res) {
-      res = (char *)str + i;
-    }
   }
 
   return res;

@@ -24,16 +24,15 @@ int main(void) {
   SRunner *sr;
 
   sr = srunner_create(NULL);
-#define TEST
-#ifdef TEST
+
   srunner_add_suite(sr, s21_strcat_case_1());
   srunner_add_suite(sr, s21_strlen_case_1());
   srunner_add_suite(sr, s21_strncat_case_1());
   srunner_add_suite(sr, s21_strchr_case_1());
   srunner_add_suite(sr, s21_strcmp_case_1());
   srunner_add_suite(sr, s21_strncmp_case_1());
-#endif
   srunner_add_suite(sr, s21_strcpy_case_1());
+  srunner_add_suite(sr, s21_strncpy_case_1());
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);
   srunner_free(sr);

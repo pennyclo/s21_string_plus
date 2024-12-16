@@ -19,5 +19,6 @@
 #include "tests/include_test/s21_strlen_test.h"
 #include "tests/include_test/s21_strncat_test.h"
 #include "tests/include_test/s21_strncmp_test.h"
+#include "tests/include_test/s21_strncpy_test.h"
 
 #endif  // SRC_TESTS_MAIN_TEST_H_

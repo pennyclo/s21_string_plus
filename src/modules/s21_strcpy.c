@@ -21,16 +21,13 @@
  * @return     A pointer to the destination string (dest).
  */
 char *s21_strcpy(char *dest, const char *src) {
-  s21_size_t len_src = s21_strlen(src);
   s21_size_t i = 0;
 
-  for (; i < len_src + 1; i++) {
+  for (; src[i] != '\0'; ++i) {
     dest[i] = src[i];
   }
 
-  if (!(src[i + 1])) {
-    dest[i + 1] = '\0';
-  }
+  dest[i] = '\0';
 
   return dest;
 }

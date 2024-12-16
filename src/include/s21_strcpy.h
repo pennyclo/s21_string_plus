@@ -13,7 +13,6 @@
 #define SRC_INCLUDE_S21_STRCPY_H_
 
 #include "include/common.h"
-#include "include/s21_strlen.h"
 
 char *s21_strcpy(char *dest, const char *src);
 

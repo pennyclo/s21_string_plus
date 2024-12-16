@@ -92,6 +92,7 @@ START_TEST(s21_strcpy_10) {
   char dest[100];
   char *result = s21_strcpy(dest, src);
   ck_assert_str_eq(dest, src);
+  ck_assert_ptr_eq(result, dest);
 }
 
 Suite *s21_strcpy_case_1(void) {

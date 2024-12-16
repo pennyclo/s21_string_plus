@@ -1,7 +1,7 @@
 /**
  * @file s21_strcpy.h
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief Header file with function declaration s21_strcmp.
+ * @brief Header file with function declaration s21_strcpy.
  * @version 1.0
  * @date 2024-12-13
  *

@@ -23,6 +23,7 @@ START_TEST(s21_strcat_1) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_2) {
   char dst1[BUFFER_SIZE] = "Yk0(CuOG(s+O@M";
@@ -34,6 +35,7 @@ START_TEST(s21_strcat_2) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_3) {
   char dst1[BUFFER_SIZE] = "w4qAIOkF7";
@@ -45,6 +47,7 @@ START_TEST(s21_strcat_3) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_4) {
   char dst1[BUFFER_SIZE] = "cd!_7kEJa%ey6I4nM";
@@ -56,6 +59,7 @@ START_TEST(s21_strcat_4) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_5) {
   char dst1[BUFFER_SIZE] = "ABh";
@@ -67,6 +71,7 @@ START_TEST(s21_strcat_5) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_6) {
   char dst1[BUFFER_SIZE] = "";
@@ -78,6 +83,7 @@ START_TEST(s21_strcat_6) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_7) {
   char dst1[BUFFER_SIZE] = "ABh";
@@ -89,6 +95,7 @@ START_TEST(s21_strcat_7) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_8) {
   char dst1[BUFFER_SIZE] = "";
@@ -100,6 +107,7 @@ START_TEST(s21_strcat_8) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_9) {
   char dst1[BUFFER_SIZE] = "";
@@ -111,6 +119,7 @@ START_TEST(s21_strcat_9) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_10) {
   char dst1[BUFFER_SIZE] =
@@ -124,6 +133,7 @@ START_TEST(s21_strcat_10) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_11) {
   char dst1[BUFFER_SIZE] = "Hello\0World";
@@ -135,6 +145,7 @@ START_TEST(s21_strcat_11) {
   ck_assert_str_eq(result, expected);
   ck_assert_mem_eq(dst1, dst2, strlen(dst1) + 1);
 }
+END_TEST
 
 START_TEST(s21_strcat_12) {
   char dst1[11] = "123456789";
@@ -147,6 +158,7 @@ START_TEST(s21_strcat_12) {
 
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_13) {
   char dst1[BUFFER_SIZE] = "\n, ";
@@ -158,6 +170,7 @@ START_TEST(s21_strcat_13) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_14) {
   char dst1[BUFFER_SIZE] = "a";
@@ -169,6 +182,7 @@ START_TEST(s21_strcat_14) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strcat_15) {
   char dst1[BUFFER_SIZE] = "";
@@ -204,6 +218,7 @@ START_TEST(s21_strcat_15) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 Suite *s21_strcat_case_1(void) {
   Suite *string = suite_create("\ns21_strcat (s21_strcat case 1)\n");

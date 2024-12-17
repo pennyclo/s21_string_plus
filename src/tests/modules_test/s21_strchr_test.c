@@ -18,6 +18,7 @@ START_TEST(s21_strchr_1) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_2) {
   char dst[BUFFER_SIZE] = "world";
@@ -25,6 +26,7 @@ START_TEST(s21_strchr_2) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_3) {
   char dst[BUFFER_SIZE] = "Hello, w";
@@ -32,6 +34,7 @@ START_TEST(s21_strchr_3) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_4) {
   char dst[BUFFER_SIZE] = "Hello, world";
@@ -39,6 +42,7 @@ START_TEST(s21_strchr_4) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_5) {
   char dst[BUFFER_SIZE] = "";
@@ -46,6 +50,7 @@ START_TEST(s21_strchr_5) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_6) {
   char dst[BUFFER_SIZE] = "\n";
@@ -53,6 +58,7 @@ START_TEST(s21_strchr_6) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_7) {
   char dst[BUFFER_SIZE] = "Hello\0world";
@@ -60,6 +66,7 @@ START_TEST(s21_strchr_7) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_8) {
   char large_string[10000];
@@ -72,6 +79,7 @@ START_TEST(s21_strchr_8) {
 
   comparison_func(dst, ch);
 }
+END_TEST
 
 START_TEST(s21_strchr_9) {
   const char str[] = "\0";  // Empty string
@@ -80,6 +88,7 @@ START_TEST(s21_strchr_9) {
   ck_assert_ptr_null(
       result);  // Standard strchr behavior is to return NULL, even if empty.
 }
+END_TEST
 
 void comparison_func(char *dst, int ch) {
   char *expected = strchr(dst, ch);

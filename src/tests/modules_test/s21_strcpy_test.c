@@ -11,8 +11,6 @@
 
 #include "tests/include_test/s21_strcpy_test.h"
 
-#include "include/common.h"
-
 START_TEST(s21_strcpy_1) {
   char src[] = "Hello, world!";
   char dest[50];
@@ -22,6 +20,7 @@ START_TEST(s21_strcpy_1) {
   ck_assert_ptr_eq(result, dest);
   ck_assert_str_eq(dest, src);
 }
+END_TEST
 
 START_TEST(s21_strcpy_2) {
   char src[] = "";
@@ -32,6 +31,7 @@ START_TEST(s21_strcpy_2) {
   ck_assert_ptr_eq(result, dest);
   ck_assert_str_eq(dest, src);
 }
+END_TEST
 
 START_TEST(s21_strcpy_3) {
   char src_dest[50] = "Test";
@@ -40,6 +40,7 @@ START_TEST(s21_strcpy_3) {
   ck_assert_str_eq(src_dest, "Test");
   ck_assert_ptr_eq(result, src_dest);
 }
+END_TEST
 
 START_TEST(s21_strcpy_4) {
   char src[1024];
@@ -54,6 +55,7 @@ START_TEST(s21_strcpy_4) {
   ck_assert_ptr_eq(result, dest);
   ck_assert_str_eq(dest, src);
 }
+END_TEST
 
 START_TEST(s21_strcpy_5) {
   char dest[50];
@@ -64,6 +66,7 @@ START_TEST(s21_strcpy_5) {
   ck_assert_ptr_eq(result, dest);
   ck_assert_str_eq(dest, src);
 }
+END_TEST
 
 START_TEST(s21_strcpy_6) {
   char src[] = "Test";
@@ -73,6 +76,7 @@ START_TEST(s21_strcpy_6) {
   ck_assert_str_eq(result, "Test");
   ck_assert_str_eq(result, src);
 }
+END_TEST
 
 START_TEST(s21_strcpy_7) {
   char src[] = "Line1\nLine2\tEnd";
@@ -83,6 +87,7 @@ START_TEST(s21_strcpy_7) {
   ck_assert_str_eq(dest, src);
   ck_assert_ptr_eq(result, dest);
 }
+END_TEST
 
 START_TEST(s21_strcpy_8) {
   char src[] = "This is a string with spaces and punctuation.";
@@ -93,6 +98,7 @@ START_TEST(s21_strcpy_8) {
   ck_assert_str_eq(dest, src);
   ck_assert_ptr_eq(result, dest);
 }
+END_TEST
 
 START_TEST(s21_strcpy_9) {
   char src[] = "This is a long string";
@@ -103,6 +109,7 @@ START_TEST(s21_strcpy_9) {
   ck_assert_ptr_eq(result, dest);
   ck_assert_str_eq(dest, src);
 }
+END_TEST
 
 START_TEST(s21_strcpy_10) {
   char src[] = "\0";
@@ -113,6 +120,7 @@ START_TEST(s21_strcpy_10) {
   ck_assert_ptr_eq(result, dest);
   ck_assert_str_eq(dest, src);
 }
+END_TEST
 
 Suite *s21_strcpy_case_1(void) {
   Suite *string = suite_create("\ns21_strcpy (s21_strcpy case 1)\n");

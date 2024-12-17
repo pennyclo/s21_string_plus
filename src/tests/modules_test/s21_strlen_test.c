@@ -15,26 +15,31 @@ START_TEST(s21_strlen_1) {
   const char *str = "";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_2) {
   const char *str = "a";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_3) {
   const char *str = "hello";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_4) {
   const char *str = "hello\0world";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_5) {
   const char *str = "hello\nworld";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_6) {
   char str[1024];
@@ -44,26 +49,31 @@ START_TEST(s21_strlen_6) {
   str[1023] = '\0';
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_7) {
   const char *str = "\0";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_8) {
   const char *str = "\n";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_9) {
   const char *str = "   hello";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_10) {
   const char *str = "hello   ";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_11) {
   char str[10];
@@ -74,17 +84,20 @@ START_TEST(s21_strlen_11) {
 
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_12) {
   char str[10] = "      ";
   str[7] = '\0';
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 START_TEST(s21_strlen_13) {
   char str[10] = "abc\0def";
   ck_assert_int_eq(s21_strlen(str), strlen(str));
 }
+END_TEST
 
 Suite *s21_strlen_case_1(void) {
   Suite *string = suite_create("\ns21_strlen (s21_strlen case 1)\n");

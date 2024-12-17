@@ -17,6 +17,7 @@ START_TEST(s21_strncmp_1) {
   s21_size_t n = 4;
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_2) {
   char str1[] = "abcdefg";
@@ -28,6 +29,7 @@ START_TEST(s21_strncmp_2) {
   n = 0;
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_3) {
   char str1[] = "abcdefg";
@@ -35,6 +37,7 @@ START_TEST(s21_strncmp_3) {
   s21_size_t n = 6;
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_4) {
   char str1[] = "abcdefg";
@@ -44,6 +47,7 @@ START_TEST(s21_strncmp_4) {
   n = 1;
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_5) {
   char str1[] = "abc";
@@ -53,6 +57,7 @@ START_TEST(s21_strncmp_5) {
   n = 7;
   ck_assert_int_ne(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_6) {
   char str1[] = "";
@@ -62,6 +67,7 @@ START_TEST(s21_strncmp_6) {
   ck_assert_int_eq(s21_strncmp(str2, str1, n), strncmp(str2, str1, n));
   ck_assert_int_eq(s21_strncmp(str1, str1, n), strncmp(str1, str1, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_7) {
   char str1[] = "abc\0def";
@@ -73,6 +79,7 @@ START_TEST(s21_strncmp_7) {
   n = 7;
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_8) {
   char str1[] = "abc";
@@ -80,6 +87,7 @@ START_TEST(s21_strncmp_8) {
   s21_size_t n = 0;
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_9) {
   char *str1 = "abc";
@@ -87,6 +95,7 @@ START_TEST(s21_strncmp_9) {
   s21_size_t n = 1000;  // Large value
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 START_TEST(s21_strncmp_10) {
   char str1[] = "abc";
@@ -95,6 +104,7 @@ START_TEST(s21_strncmp_10) {
 
   ck_assert_int_eq(s21_strncmp(str1, str2, n), strncmp(str1, str2, n));
 }
+END_TEST
 
 Suite *s21_strncmp_case_1(void) {
   Suite *string = suite_create("\ns21_strncmp (s21_strncmp case 1)\n");

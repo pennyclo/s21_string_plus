@@ -27,6 +27,7 @@ START_TEST(s21_strncat_1) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_2) {
   char dst1[BUFFER_SIZE] = "DBMfnb08, ";
@@ -39,6 +40,7 @@ START_TEST(s21_strncat_2) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_3) {
   char dst1[BUFFER_SIZE] = "Hello, ";
@@ -51,6 +53,7 @@ START_TEST(s21_strncat_3) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_4) {
   char dst1[BUFFER_SIZE] = "";
@@ -63,6 +66,7 @@ START_TEST(s21_strncat_4) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_5) {
   char dst1[BUFFER_SIZE] = "Hello, ";
@@ -75,6 +79,7 @@ START_TEST(s21_strncat_5) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_6) {
   char dst1[BUFFER_SIZE] = "";
@@ -87,6 +92,7 @@ START_TEST(s21_strncat_6) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_7) {
   char dst1[BUFFER_SIZE] = "Hello, ";
@@ -99,6 +105,7 @@ START_TEST(s21_strncat_7) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_8) {
   char dst1[BUFFER_SIZE] = "Hello, ";
@@ -111,6 +118,7 @@ START_TEST(s21_strncat_8) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_9) {
   char dst1[BUFFER_SIZE] = "Hello, ";
@@ -123,6 +131,7 @@ START_TEST(s21_strncat_9) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_10) {
   char dst1[BUFFER_SIZE] = "Hello, ";
@@ -135,6 +144,7 @@ START_TEST(s21_strncat_10) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_11) {
   char dst1[BUFFER_SIZE] = "Goo\0dbye, ";
@@ -147,6 +157,7 @@ START_TEST(s21_strncat_11) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_12) {
   char dst1[BUFFER_SIZE] = "Goo\ndbye, ";
@@ -159,6 +170,7 @@ START_TEST(s21_strncat_12) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_13) {
   char dst1[BUFFER_SIZE] = "Goodbye, ";
@@ -171,6 +183,7 @@ START_TEST(s21_strncat_13) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_14) {
   char dst1[BUFFER_SIZE] = "";
@@ -183,6 +196,7 @@ START_TEST(s21_strncat_14) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_15) {
   char dst1[BUFFER_SIZE] = "Goodbye, ";
@@ -195,6 +209,7 @@ START_TEST(s21_strncat_15) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_16) {
   char dst1[BUFFER_SIZE] = "";
@@ -207,6 +222,7 @@ START_TEST(s21_strncat_16) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_17) {
   char dst1[BUFFER_SIZE] = "Goodbye, ";
@@ -219,6 +235,7 @@ START_TEST(s21_strncat_17) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_18) {
   char dst1[BUFFER_SIZE] = "Goodbye, ";
@@ -231,6 +248,7 @@ START_TEST(s21_strncat_18) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_19) {
   char dst1[BUFFER_SIZE] = "Goodbye, ";
@@ -243,6 +261,7 @@ START_TEST(s21_strncat_19) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 START_TEST(s21_strncat_20) {
   char dst1[BUFFER_SIZE] = "Goodbye, ";
@@ -255,6 +274,7 @@ START_TEST(s21_strncat_20) {
   ck_assert_str_eq(result, expected);
   ck_assert_str_eq(dst1, dst2);
 }
+END_TEST
 
 Suite *s21_strncat_case_1(void) {
   Suite *string = suite_create("\ns21_strncat (s21_strncat case 1)\n");

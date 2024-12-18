@@ -8,6 +8,16 @@ LDFLAGS           := -lcheck -lsubunit -lm -I.
 COV_FLAGS         := -fprofile-arcs -ftest-coverage
 VAL_FLAGS         := --tool=memcheck --leak-cheack=yes
 
+PLATFORM          ?= LINUX
+
+ifeq ($(PLATFORM), LINUX)
+	CFLAGS += -D_LINUX_
+else ifeq ($(PLATFORM), MACOS)
+	CFLAGS += -D_MACOS_
+else
+	$(error Unsupported platform: $(PLATFORM). Use PLATFORM=LINUX or PLATFORM=MACOS.)
+endif
+
 #===================================PATH_DIR===================================#
 MODULES_DIR       := ./modules
 TESTS_DIR         := ./tests

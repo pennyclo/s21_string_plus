@@ -26,16 +26,13 @@
  */
 char *s21_strchr(const char *str, int c) {
   char *res = S21_NULL;
+  int i = 0;
+  char find = 1;
 
-  if (*str) {
-    int i = 0;
-    int find = 0;
-
-    for (; str[i] && !find; ++i) {
-      if (str[i] == (char)c) {
-        res = (char *)str + i;
-        find = 1;
-      }
+  for (; str[i] && find; ++i) {
+    if (str[i] == (char)c) {
+      res = (char *)str + i;
+      find = 0;
     }
   }
 

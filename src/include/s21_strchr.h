@@ -13,7 +13,6 @@
 #define SRC_INCLUDE_S21_STRCHR_H_
 
 #include "include/common.h"
-#include "include/s21_strlen.h"
 
 char *s21_strchr(const char *str, int c);
 

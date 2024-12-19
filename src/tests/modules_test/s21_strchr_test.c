@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2024
  *
  */
+
 #include "tests/include_test/s21_strchr_test.h"
 
 #define BUFFER_SIZE 1024
@@ -73,8 +74,8 @@ START_TEST(s21_strchr_8) {
   memset(large_string, 'a', sizeof(large_string) - 1);
   large_string[sizeof(large_string) - 1] = '\0';
   char dst[BUFFER_SIZE];
-  strcpy(dst, large_string);  // not implemented yet
-  strcpy(dst, large_string);  // not implemented yet
+  strcpy(dst, large_string);
+  strcpy(dst, large_string);
   char ch = 'a';
 
   comparison_func(dst, ch);
@@ -82,11 +83,10 @@ START_TEST(s21_strchr_8) {
 END_TEST
 
 START_TEST(s21_strchr_9) {
-  const char str[] = "\0";  // Empty string
-  int c = 'a';              // Character NOT present in empty string.
+  const char str[] = "\0";
+  int c = 'a';
   char *result = s21_strchr(str, c);
-  ck_assert_ptr_null(
-      result);  // Standard strchr behavior is to return NULL, even if empty.
+  ck_assert_ptr_null(result);
 }
 END_TEST
 

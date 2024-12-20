@@ -37,8 +37,9 @@ int main(void) {
   srunner_add_suite(sr, s21_strcspn_case_1());
   srunner_add_suite(sr, s21_strerror_case_1());
   srunner_add_suite(sr, s21_strpbrk_case_1());
-#endif
   srunner_add_suite(sr, s21_strrchr_case_1());
+#endif
+  srunner_add_suite(sr, s21_strspn_case_1());
 
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);

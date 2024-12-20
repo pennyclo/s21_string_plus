@@ -24,5 +24,6 @@
 #include "tests/include_test/s21_strncpy_test.h"
 #include "tests/include_test/s21_strpbrk_test.h"
 #include "tests/include_test/s21_strrchr_test.h"
+#include "tests/include_test/s21_strspn_test.h"
 
 #endif  // SRC_TESTS_MAIN_TEST_H_

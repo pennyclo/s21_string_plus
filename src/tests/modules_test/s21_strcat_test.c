@@ -236,14 +236,10 @@ Suite *s21_strcat_case_1(void) {
   tcase_add_test(tc_s21_strcat, s21_strcat_9);
   tcase_add_test(tc_s21_strcat, s21_strcat_10);
   tcase_add_test(tc_s21_strcat, s21_strcat_11);
+  tcase_add_test(tc_s21_strcat, s21_strcat_12);
   tcase_add_test(tc_s21_strcat, s21_strcat_13);
   tcase_add_test(tc_s21_strcat, s21_strcat_14);
   tcase_add_test(tc_s21_strcat, s21_strcat_15);
-
-#ifndef TEST
-#define TEST
-  tcase_add_test(tc_s21_strcat, s21_strcat_12);
-#endif
 
   suite_add_tcase(string, tc_s21_strcat);
 

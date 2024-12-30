@@ -2,8 +2,8 @@
  * @file s21_strtok_test.h
  * @author Artemy Plokhikh (https://github.com/isiyar)
  * @brief Header file with function declaration s21_strtok_test.
- * @version 1.0
- * @date 2024-12-28
+ * @version 0.1
+ * @date 2024-12-29
  *
  * @copyright Copyright (c) 2024
  *

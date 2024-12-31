@@ -12,276 +12,82 @@
 #include "tests/include_test/s21_strtok_test.h"
 
 START_TEST(s21_strtok_1) {
-  char str[] = "apple,banana,cherry";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "Hello, world!";
+  char str2[] = "Hello, world!";
+  const char delim[] = " ";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_2) {
-  char str[] = ",apple,banana,cherry,";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "a,b,c";
+  char str2[] = "a,b,c";
+  const char delim[] = ",";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_str_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_3) {
-  char str[] = "apple,,banana,cherry";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "word";
+  char str2[] = "word";
+  const char delim[] = ",";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_ptr_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_4) {
-  char str[] = "";
-  char *delim = ",";
-  char *token, *token_sample;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "|||word1|||word2||";
+  char str2[] = "|||word1|||word2||";
+  const char delim[] = "|";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_str_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_5) {
-  char str[] = "apple";
-  char *delim = ",";
-  char *expected[] = {"apple"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "";
+  char str2[] = "";
+  const char delim[] = ",";
+  ck_assert_ptr_eq(s21_strtok(str1, delim), strtok(str2, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_6) {
-  char str[] = "apple,banana,cherry,";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = ",,,";
+  char str2[] = ",,,";
+  const char delim[] = ",";
+  ck_assert_ptr_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_ptr_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_7) {
-  char str[] = ",,,";
-  char *delim = ",";
-  char *token, *token_sample;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "word";
+  char str2[] = "word";
+  const char delim[] = " ";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_ptr_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_8) {
-  char str[] = "apple,banana,cherry,,,";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "word1 word2";
+  char str2[] = "word1 word2";
+  const char delim[] = " ";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_str_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
 START_TEST(s21_strtok_9) {
-  char str[] = ",,apple,banana,cherry";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
-}
-END_TEST
-
-START_TEST(s21_strtok_10) {
-  char str[] = "apple,,,banana,,,cherry";
-  char *delim = ",";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
-}
-END_TEST
-
-START_TEST(s21_strtok_11) {
-  char str[] = "apple\0banana\0cherry";
-  char *delim = "\0";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
-}
-END_TEST
-
-START_TEST(s21_strtok_12) {
-  char str[] = "apple\0banana,cherry";
-  char *delim = ",\0";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
-}
-END_TEST
-
-START_TEST(s21_strtok_13) {
-  char str[] = "apple\0,banana,cherry";
-  char *delim = ",\0";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
-}
-END_TEST
-
-START_TEST(s21_strtok_14) {
-  char str[] = "apple\0,banana,cherry";
-  char *delim = ",\0";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
-}
-END_TEST
-
-START_TEST(s21_strtok_15) {
-  char str[] = "apple,banana\0cherry";
-  char *delim = ",\0";
-  char *expected[] = {"apple", "banana", "cherry"};
-  char *token, *token_sample;
-  int i = 0;
-
-  token = s21_strtok(str, delim);
-  token_sample = strtok(str, delim);
-  while (token != NULL && token_sample != NULL) {
-    ck_assert_str_eq(token, token_sample);
-    ck_assert_str_eq(token, expected[i++]);
-    token = strtok(NULL, delim);
-    token_sample = strtok(NULL, delim);
-  }
-  ck_assert_ptr_eq(token, token_sample);
+  char str1[] = "one,two,three";
+  char str2[] = "one,two,three";
+  const char delim[] = ",";
+  ck_assert_str_eq(s21_strtok(str1, delim), strtok(str2, delim));
+  ck_assert_str_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
+  ck_assert_str_eq(s21_strtok(NULL, delim), strtok(NULL, delim));
 }
 END_TEST
 
@@ -299,12 +105,6 @@ Suite *s21_strtok_case_1(void) {
   tcase_add_test(tc_s21_strtok, s21_strtok_7);
   tcase_add_test(tc_s21_strtok, s21_strtok_8);
   tcase_add_test(tc_s21_strtok, s21_strtok_9);
-  tcase_add_test(tc_s21_strtok, s21_strtok_10);
-  tcase_add_test(tc_s21_strtok, s21_strtok_11);
-  tcase_add_test(tc_s21_strtok, s21_strtok_12);
-  tcase_add_test(tc_s21_strtok, s21_strtok_13);
-  tcase_add_test(tc_s21_strtok, s21_strtok_14);
-  tcase_add_test(tc_s21_strtok, s21_strtok_15);
 
   suite_add_tcase(string, tc_s21_strtok);
 

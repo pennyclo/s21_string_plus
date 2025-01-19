@@ -12,6 +12,7 @@
 #ifndef SRC_TESTS_MAIN_TEST_H_
 #define SRC_TESTS_MAIN_TEST_H_
 
+#include "tests/include_test/s21_atoi_test.h"
 #include "tests/include_test/s21_memchr_test.h"
 #include "tests/include_test/s21_memcmp_test.h"
 #include "tests/include_test/s21_memcpy_test.h"

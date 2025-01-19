@@ -12,8 +12,6 @@
 #ifndef SRC_INCLUDE_S21_ATOI_H_
 #define SRC_INCLUDE_S21_ATOI_H_
 
-#include <limits.h>
-
 #include "include/common.h"
 
 int s21_atoi(char *s);

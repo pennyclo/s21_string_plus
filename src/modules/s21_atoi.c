@@ -19,8 +19,8 @@
  * @return int Integer obtained after converting the string str.
  */
 int s21_atoi(char *s) {
-  int result, sign = 1;
-  long long n = 0;
+  int sign = 1;
+  int n = 0;
 
   if (s[0] == '-' || s[0] == '+') {
     sign = s[0] == '-' ? -1 : 1;
@@ -32,11 +32,5 @@ int s21_atoi(char *s) {
     s++;
   }
 
-  if (n > INT_MAX) {
-    result = sign == 1 ? INT_MAX : INT_MIN;
-  } else {
-    result = (int)(n * sign);
-  }
-
-  return result;
+  return n * sign;
 }

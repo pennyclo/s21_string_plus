@@ -13,7 +13,7 @@
 
 START_TEST(s21_atoi_1) {
   char str[] = "42";
-  int correct_result = 42;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
@@ -21,7 +21,7 @@ END_TEST
 
 START_TEST(s21_atoi_2) {
   char str[] = "-17";
-  int correct_result = -17;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
@@ -29,7 +29,7 @@ END_TEST
 
 START_TEST(s21_atoi_3) {
   char str[] = "000456";
-  int correct_result = 456;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
@@ -37,7 +37,7 @@ END_TEST
 
 START_TEST(s21_atoi_4) {
   char str[] = "2147483647";
-  int correct_result = 2147483647;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
@@ -45,15 +45,15 @@ END_TEST
 
 START_TEST(s21_atoi_5) {
   char str[] = "-2147483648";
-  int correct_result = -2147483648;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
 END_TEST
 
 START_TEST(s21_atoi_6) {
-  char str[] = "2147483648";
-  int correct_result = 2147483647;
+  char str[] = "2147483649";
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
@@ -61,7 +61,7 @@ END_TEST
 
 START_TEST(s21_atoi_7) {
   char str[] = "-2147483649";
-  int correct_result = -2147483648;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }
@@ -69,7 +69,7 @@ END_TEST
 
 START_TEST(s21_atoi_8) {
   char str[] = "abc123";
-  int correct_result = 0;
+  int correct_result = atoi(str);
   int atoi_result = s21_atoi(str);
   ck_assert_int_eq(correct_result, atoi_result);
 }

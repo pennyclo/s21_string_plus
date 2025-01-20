@@ -18,7 +18,7 @@
  * @param str A pointer to the string to be converted.
  * @return int Integer obtained after converting the string str.
  */
-int s21_atoi(char *s) {
+int s21_atoi(const char *s) {
   int sign = 1;
   int n = 0;
 

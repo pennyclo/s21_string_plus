@@ -14,6 +14,6 @@
 
 #include "include/common.h"
 
-int s21_atoi(char *s);
+int s21_atoi(const char *s);
 
 #endif  // SRC_INCLUDE_S21_ATOI_H_

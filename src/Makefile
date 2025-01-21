@@ -57,7 +57,7 @@ TEST_O            := $(TEST_C:$(TESTS_DIR)/modules_test/%.c=$(OBJ_DIR)/tests/%.o
 
 #==============================OBJECTIVE_TARGETS===============================#
 $(DEBUG): clean $(DEBUG_DIR) $(OBJ_DIR)/modules $(OBJ_FILES)
-	@$(CC) -g -I. debug.c -o $(DEBUG_DIR)/$@ $(OBJ_FILES)
+	@$(CC) -g -I. debug.c -o $(DEBUG_DIR)/$@ $(OBJ_FILES) -lm
 	@valgrind --tool=memcheck --leak-check=yes --track-origins=yes ./$(DEBUG_DIR)/$@
 
 $(OBJ_DIR)/modules/%.o: $(MODULES_DIR)/%.c

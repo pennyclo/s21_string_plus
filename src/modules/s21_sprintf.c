@@ -15,6 +15,7 @@ int s21_sprintf(char *str, const char *format, ...) {
   va_list arguments;
   va_start(arguments, format);
 
+  char *start = str;
   while (*format) {
     format_t form = {0};
 
@@ -48,9 +49,11 @@ int s21_sprintf(char *str, const char *format, ...) {
     // printf("<%c>\n", form.spec);
   }
 
+  *str = '\0';
+
   va_end(arguments);
 
-  return 0;
+  return (int)(str - start);
 }
 
 int check_digit(const char c) { return (c >= '0' && c <= '9'); }
@@ -95,7 +98,7 @@ const char *value_accuracy(const char *format, format_t *form,
 const char *value_lenght(const char *format, format_t *form) {
   char *lenght = "Llh";
   if (s21_strcspn(format, lenght) == 0) {
-    form->lenght = *format;
+    form->length = *format;
     ++format;
   }
 
@@ -166,37 +169,41 @@ char *type_definition(format_t *form, char *str, va_list arguments) {
 }
 
 char *format_char(format_t *form, char *str, va_list arguments) {
-  char c = va_arg(arguments, int);
-  int i = 1;
-
-  while (i < form->width) {
+  for (int i = 1; i < form->width; ++i) {
     *str++ = ' ';
-    ++i;
   }
 
-  if (form->lenght == 'l') {
-    char big_ch[100];
+  if (form->length == 'l') {
+    wchar_t w_c = va_arg(arguments, wchar_t);
+    char tmp[MB_CUR_MAX];
+    mbstate_t state;
+    s21_memset(&state, 0, sizeof(state));
 
-    big_ch[0] = va_arg(arguments, wchar_t);
-    s21_strcat(str, big_ch);
+    size_t len = wcrtomb(tmp, w_c, &state);
+
+    s21_memcpy(str, tmp, len);
+    str += len;
   } else {
-    *str = c;
+    char c = (char)va_arg(arguments, int);
+    *str++ = c;
   }
 
-  ++str;
+  *str = '\0';
 
   return str;
 }
 
 char *format_int(format_t *form, char *str, va_list arguments) {
-  int num = va_arg(arguments, int);
+  // int num = va_arg(arguments, int);
 
-  while (num) {
-    *str++ = (num % 10) + '0';
-    num = num / 10;
-  }
+  // while (num) {
+  //   *str++ = (num % 10) + '0';
+  //   num = num / 10;
 
-  ++str;
+  //   num = pow(num, 2);
+  // }
+
+  // ++str;
 
   return str;
 }

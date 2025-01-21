@@ -9,17 +9,21 @@
  *
  */
 
-#ifndef SRC_INCLUDE_S21_MEMSET_H_
-#define SRC_INCLUDE_S21_MEMSET_H_
+#ifndef SRC_INCLUDE_S21_SPRINTF_H_
+#define SRC_INCLUDE_S21_SPRINTF_H_
 
 #include <limits.h>
+#include <math.h>
 #include <stdarg.h>
 #include <stdio.h>   // before delete
 #include <stdlib.h>  // before delete
 #include <string.h>
+#include <wchar.h>
 
 #include "include/common.h"
 #include "include/s21_atoi.h"
+#include "include/s21_memcpy.h"
+#include "include/s21_memset.h"
 #include "include/s21_strcat.h"
 #include "include/s21_strcspn.h"
 
@@ -27,7 +31,7 @@ typedef struct {
   int width;
   int accuracy;
   char flag;
-  int lenght;
+  int length;
   char spec;
 } format_t;
 
@@ -44,4 +48,4 @@ char *type_definition(format_t *form, char *str, va_list arguments);
 char *format_char(format_t *form, char *str, va_list arguments);
 char *format_int(format_t *form, char *str, va_list arguments);
 
-#endif  // SRC_INCLUDE_S21_MEMSET_H_
+#endif  // SRC_INCLUDE_S21_SPRINTF_H_

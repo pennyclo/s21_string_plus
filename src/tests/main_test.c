@@ -48,8 +48,9 @@ int main(void) {
   srunner_add_suite(sr, s21_memset_case_1());
   srunner_add_suite(sr, s21_memchr_case_1());
   srunner_add_suite(sr, s21_memcmp_case_1());
-#endif
   srunner_add_suite(sr, s21_memchr_case_1());
+#endif
+  srunner_add_suite(sr, s21_sprintf_case_1());
 
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);

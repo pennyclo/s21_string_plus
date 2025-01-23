@@ -32,6 +32,8 @@
 typedef struct {
   bool minus;
   bool plus;
+  bool space;
+  bool zero;
 } flags_t;
 
 typedef struct {

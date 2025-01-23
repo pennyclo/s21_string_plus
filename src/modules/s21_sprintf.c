@@ -95,8 +95,11 @@ void check_bool_flags(format_t *form, const char *format) {
     case '+':
       form->flags.plus = true;
       break;
-
-    default:
+    case ' ':
+      form->flags.space = true;
+      break;
+    case '0':
+      form->flags.zero = true;
       break;
   }
 }
@@ -227,16 +230,59 @@ char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
 }
 
 char *format_int(format_t *form, char *str, va_list arguments) {
-  // int num = va_arg(arguments, int);
+  long long num = va_arg(arguments, long long);
+  int i = 1, arg_length = num >= 0 ? 0 : 1, temp = num;
+  while (temp != 0) {
+    arg_length++;
+    temp /= 10;
+  }
 
-  // while (num) {
-  //   *str++ = (num % 10) + '0';
-  //   num = num / 10;
+  switch (form->length) {
+    case 'h':
+      num = (short)num;
+      break;
+    case 'l':
+      num = (long)num;
+      break;
+    default:
+      num = (int)num;
+      break;
+  }
 
-  //   num = pow(num, 2);
-  // }
+  if (form->flags.plus && num >= 0) {
+    *str++ = '+';
+  } else if (form->flags.space && num >= 0) {
+    *str++ = ' ';
+  } else if (num < 0) {
+    *str++ = '-';
+    num *= -1;
+  }
 
-  // ++str;
+  if (!form->flags.minus && num < pow(10, form->width - 1)) {
+    char symb = ' ';
+    if (form->flags.zero) {
+      symb = '0';
+    }
+    while (i < form->width - arg_length) {
+      *str++ = symb;
+      ++i;
+    }
+  }
+
+  for (int j = arg_length - 1; j >= 0; j--) {
+    *(str + j) = num % 10 + '0';
+    num /= 10;
+  }
+  str += arg_length;
+
+  if (form->flags.minus) {
+    while (i < form->width - arg_length) {
+      *str++ = ' ';
+      ++i;
+    }
+  }
+
+  ++str;
 
   return str;
 }

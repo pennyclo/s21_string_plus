@@ -27,6 +27,7 @@
 #include "include/s21_memset.h"
 #include "include/s21_strcat.h"
 #include "include/s21_strcspn.h"
+#include "include/s21_strerror.h"
 
 typedef struct {
   bool minus;
@@ -51,8 +52,8 @@ const char *value_accuracy(const char *format, format_t *form,
 int check_flags(const char c);
 const char *value_lenght(const char *format, format_t *form);
 const char *value_specifier(const char *format, format_t *form);
-char *type_definition(format_t *form, char *str, va_list arguments);
-char *format_char(format_t *form, char *str, va_list arguments);
+char *type_definition(format_t *form, char *str, va_list arguments, int *crt);
+char *format_char(format_t *form, char *str, va_list arguments, int *crt);
 char *format_int(format_t *form, char *str, va_list arguments);
 void check_bool_flags(format_t *form, const char *format);
 

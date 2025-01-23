@@ -14,6 +14,7 @@
 int s21_sprintf(char *str, const char *format, ...) {
   va_list arguments;
   va_start(arguments, format);
+  int crt = 1;
 
   char *start = str;
   while (*format) {
@@ -41,7 +42,7 @@ int s21_sprintf(char *str, const char *format, ...) {
     format = value_lenght(format, &form);
     format = value_specifier(format, &form);
 
-    str = type_definition(&form, str, arguments);
+    str = type_definition(&form, str, arguments, &crt);
     // printf("<%d>\n", form.width);
     // printf("<%d>\n", form.accuracy);
     // printf("<%c>\n", form.flag);
@@ -53,7 +54,13 @@ int s21_sprintf(char *str, const char *format, ...) {
 
   va_end(arguments);
 
-  return (int)(str - start);
+  if (crt) {
+    crt = (int)(str - start);
+  } else {
+    crt = -1;
+  }
+
+  return crt;
 }
 
 int check_digit(const char c) { return (c >= '0' && c <= '9'); }
@@ -130,10 +137,10 @@ const char *value_specifier(const char *format, format_t *form) {
   return format;
 }
 
-char *type_definition(format_t *form, char *str, va_list arguments) {
+char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
   switch (form->spec) {
     case 'c':
-      str = format_char(form, str, arguments);
+      str = format_char(form, str, arguments, crt);
       break;
     case 'd':
       str = format_int(form, str, arguments);
@@ -182,7 +189,7 @@ char *type_definition(format_t *form, char *str, va_list arguments) {
   return str;
 }
 
-char *format_char(format_t *form, char *str, va_list arguments) {
+char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
   if (!form->flags.minus) {
     for (int i = 1; i < form->width; ++i) {
       *str++ = ' ';
@@ -190,18 +197,24 @@ char *format_char(format_t *form, char *str, va_list arguments) {
   }
 
   if (form->length == 'l') {
-    wchar_t w_c = va_arg(arguments, wchar_t);
+    wchar_t big_c = va_arg(arguments, wchar_t);
     char tmp[MB_CUR_MAX];
     mbstate_t state;
     s21_memset(&state, 0, sizeof(state));
 
-    size_t len = wcrtomb(tmp, w_c, &state);
+    size_t len = wcrtomb(tmp, big_c, &state);
+    if (!(len == (size_t)-1)) {
+      s21_memcpy(str, tmp, len);
+      str += len;
+    } else {
+      *crt = 0;
+    }
 
-    s21_memcpy(str, tmp, len);
-    str += len;
   } else {
     char c = (char)va_arg(arguments, int);
     *str++ = c;
+
+    *str = '\0';
   }
 
   if (form->flags.minus) {
@@ -209,8 +222,6 @@ char *format_char(format_t *form, char *str, va_list arguments) {
       *str++ = ' ';
     }
   }
-
-  *str = '\0';
 
   return str;
 }

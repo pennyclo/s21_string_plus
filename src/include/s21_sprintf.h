@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <math.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdio.h>   // before delete
 #include <stdlib.h>  // before delete
 #include <string.h>
@@ -28,9 +29,15 @@
 #include "include/s21_strcspn.h"
 
 typedef struct {
+  bool minus;
+  bool plus;
+} flags_t;
+
+typedef struct {
+  flags_t flags;
   int width;
   int accuracy;
-  char flag;
+  // char flag;
   int length;
   char spec;
 } format_t;
@@ -47,5 +54,6 @@ const char *value_specifier(const char *format, format_t *form);
 char *type_definition(format_t *form, char *str, va_list arguments);
 char *format_char(format_t *form, char *str, va_list arguments);
 char *format_int(format_t *form, char *str, va_list arguments);
+void check_bool_flags(format_t *form, const char *format);
 
 #endif  // SRC_INCLUDE_S21_SPRINTF_H_

@@ -26,8 +26,8 @@ int s21_sprintf(char *str, const char *format, ...) {
       ++format;
     }
 
-    if (check_flags(*format)) {
-      form.flag = *format;
+    while (check_flags(*format)) {
+      check_bool_flags(&form, format);
       ++format;
     }
 
@@ -78,6 +78,20 @@ const char *value_width(const char *format, format_t *form, va_list arguments) {
   }
 
   return format;
+}
+
+void check_bool_flags(format_t *form, const char *format) {
+  switch (*format) {
+    case '-':
+      form->flags.minus = true;
+      break;
+    case '+':
+      form->flags.plus = true;
+      break;
+
+    default:
+      break;
+  }
 }
 
 const char *value_accuracy(const char *format, format_t *form,
@@ -169,8 +183,10 @@ char *type_definition(format_t *form, char *str, va_list arguments) {
 }
 
 char *format_char(format_t *form, char *str, va_list arguments) {
-  for (int i = 1; i < form->width; ++i) {
-    *str++ = ' ';
+  if (!form->flags.minus) {
+    for (int i = 1; i < form->width; ++i) {
+      *str++ = ' ';
+    }
   }
 
   if (form->length == 'l') {
@@ -186,6 +202,12 @@ char *format_char(format_t *form, char *str, va_list arguments) {
   } else {
     char c = (char)va_arg(arguments, int);
     *str++ = c;
+  }
+
+  if (form->flags.minus) {
+    for (int i = 1; i < form->width; ++i) {
+      *str++ = ' ';
+    }
   }
 
   *str = '\0';

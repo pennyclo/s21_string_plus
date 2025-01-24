@@ -1,6 +1,7 @@
 /**
  * @file s21_sprintf_test.h
  * @author Alexandr Afanasev (https://github.com/pennyclo)
+ * @author Artemy Plokhikh (https://github.com/isiyar)
  * @brief Header file with function declaration s21_sprintf_test.
  * @version 1.0
  * @date 2025-01-15

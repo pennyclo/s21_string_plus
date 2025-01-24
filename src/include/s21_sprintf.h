@@ -1,6 +1,7 @@
 /**
  * @file s21_sprintf.h
  * @author Alexandr Afanasev (https://github.com/pennyclo)
+ * @author Artemy Plokhikh (https://github.com/isiyar)
  * @brief Header file with function declaration s21_sprintf.
  * @version 1.0
  * @date 2025-01-15
@@ -26,8 +27,9 @@
 #include "include/s21_memcpy.h"
 #include "include/s21_memset.h"
 #include "include/s21_strcat.h"
+#include "include/s21_strcpy.h"
 #include "include/s21_strcspn.h"
-#include "include/s21_strerror.h"
+#include "include/s21_strncpy.h"
 
 typedef struct {
   bool minus;
@@ -38,9 +40,9 @@ typedef struct {
 
 typedef struct {
   flags_t flags;
+  bool accur;
   int width;
   int accuracy;
-  // char flag;
   int length;
   char spec;
 } format_t;
@@ -52,11 +54,15 @@ int presence_point(const char c);
 const char *value_accuracy(const char *format, format_t *form,
                            va_list arguments);
 int check_flags(const char c);
-const char *value_lenght(const char *format, format_t *form);
+const char *value_length(const char *format, format_t *form);
 const char *value_specifier(const char *format, format_t *form);
 char *type_definition(format_t *form, char *str, va_list arguments, int *crt);
 char *format_char(format_t *form, char *str, va_list arguments, int *crt);
 char *format_int(format_t *form, char *str, va_list arguments);
 void check_bool_flags(format_t *form, const char *format);
+char *format_string(format_t *form, char *str, va_list arguments, int *crt);
+char *write_space(format_t *form, char *str, s21_size_t length);
+char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form);
+char *write_string(char *buf, char *str, format_t *form);
 
 #endif  // SRC_INCLUDE_S21_SPRINTF_H_

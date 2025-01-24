@@ -291,7 +291,7 @@ char *format_string(format_t *form, char *str, va_list arguments, int *crt) {
   if (form->length == 'l') {
     wchar_t *wbuf = va_arg(arguments, wchar_t *);
 
-    if (wbuf == NULL) {
+    if (wbuf == S21_NULL) {
       s21_strcpy(str, "(null)");
       str += 6;
     } else {
@@ -300,7 +300,7 @@ char *format_string(format_t *form, char *str, va_list arguments, int *crt) {
   } else {
     char *buf = va_arg(arguments, char *);
 
-    if (buf == NULL) {
+    if (buf == S21_NULL) {
       s21_strcpy(str, "(null)");
       str += 6;
     } else {
@@ -321,7 +321,7 @@ char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form) {
   if (len == (s21_size_t)-1) {
     *crt = 0;
   } else {
-    if (form->accur) {
+    if (form->accur && form->accuracy <= len) {
       len = form->accuracy;
     } else {
       form->accuracy = len;
@@ -349,7 +349,7 @@ char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form) {
 char *write_string(char *buf, char *str, format_t *form) {
   s21_size_t len = s21_strlen(buf);
 
-  if (form->accur) {
+  if (form->accur && form->accuracy <= len) {
     len = form->accuracy;
   } else {
     form->accuracy = len;

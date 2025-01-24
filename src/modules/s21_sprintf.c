@@ -321,7 +321,7 @@ char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form) {
   if (len == (s21_size_t)-1) {
     *crt = 0;
   } else {
-    if (form->accur && form->accuracy <= len) {
+    if (form->accur && form->accuracy <= (int)len) {
       len = form->accuracy;
     } else {
       form->accuracy = len;
@@ -349,7 +349,7 @@ char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form) {
 char *write_string(char *buf, char *str, format_t *form) {
   s21_size_t len = s21_strlen(buf);
 
-  if (form->accur && form->accuracy <= len) {
+  if (form->accur && form->accuracy <= (int)len) {
     len = form->accuracy;
   } else {
     form->accuracy = len;

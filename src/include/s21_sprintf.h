@@ -36,6 +36,7 @@ typedef struct {
   bool plus;
   bool space;
   bool zero;
+  bool sharp;
 } flags_t;
 
 typedef struct {
@@ -64,5 +65,9 @@ char *format_string(format_t *form, char *str, va_list arguments, int *crt);
 char *write_space(format_t *form, char *str, s21_size_t length);
 char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form);
 char *write_string(char *buf, char *str, format_t *form);
+char *format_float(format_t *form, char *str, va_list arguments);
+char *write_whole(double exp, double man, char *str, format_t *form);
+char *write_fractional(double exp, char *str, format_t *form);
+char *write_width(char *str, format_t *form, char *start);
 
 #endif  // SRC_INCLUDE_S21_SPRINTF_H_

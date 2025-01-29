@@ -104,6 +104,9 @@ void check_bool_flags(format_t *form, const char *format) {
     case '0':
       form->flags.zero = true;
       break;
+    case '#':
+      form->flags.sharp = true;
+      break;
   }
 }
 
@@ -133,7 +136,7 @@ const char *value_length(const char *format, format_t *form) {
 }
 
 const char *value_specifier(const char *format, format_t *form) {
-  char *specifiers = "cdeEfgGosuxXpni";
+  char *specifiers = "cdeEfgGosuxXpni%";
 
   if (s21_strcspn(format, specifiers) == 0) {
     form->spec = *format;
@@ -157,9 +160,9 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     // case 'E':
     //   format_E(form, str);
     //   break;
-    // case 'f':
-    //   format_float(form, str);
-    //   break;
+    case 'f':
+      str = format_float(form, str, arguments);
+      break;
     // case 'g':
     //   format_g(form, str);
     //   break;
@@ -172,24 +175,28 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     case 's':
       str = format_string(form, str, arguments, crt);
       break;
-      // case 'u':
-      //   format_u(form, str);
-      //   break;
-      // case 'x':
-      //   format_x(form, str);
-      //   break;
-      // case 'X':
-      //   format_X(form, str);
-      //   break;
-      // case 'p':
-      //   format_p(form, str);
-      //   break;
-      // case 'n':
-      //   format_n(form, str);
-      //   break;
-      // case 'i':
-      //   format_i(form, str);
-      //   break;
+    // case 'u':
+    //   format_u(form, str);
+    //   break;
+    // case 'x':
+    //   format_x(form, str);
+    //   break;
+    // case 'X':
+    //   format_X(form, str);
+    //   break;
+    // case 'p':
+    //   format_p(form, str);
+    //   break;
+    // case 'n':
+    //   format_n(form, str);
+    //   break;
+    // case 'i':
+    //   format_i(form, str);
+    //   break;
+    case '%':
+      *str = '%';
+      ++str;
+      break;
   }
 
   return str;
@@ -375,6 +382,127 @@ char *write_space(format_t *form, char *str, s21_size_t length) {
     for (s21_size_t i = 0; i < form->width - length; ++i) {
       *str++ = ' ';
     }
+  }
+
+  return str;
+}
+
+char *format_float(format_t *form, char *str, va_list arguments) {
+  long double num = 0;
+  char *start = str;
+
+  if (form->length == 'L') {
+    num = va_arg(arguments, long double);
+  } else {
+    num = va_arg(arguments, double);
+  }
+
+  if (form->flags.plus && num >= 0.0) {
+    *str++ = '+';
+  } else if (form->flags.space && num >= 0.0) {
+    *str++ = ' ';
+  } else if (num < 0.0) {
+    *str++ = '-';
+    num *= -1;
+  }
+
+  if (!form->accur) {
+    form->accuracy = 6;
+  }
+
+  long double mantis = 0, exp = 0;
+
+  switch (form->length) {
+    case 'L':
+      exp = modfl(num, &mantis);
+      break;
+
+    default:
+      exp = modfl(num, &mantis);
+      break;
+  }
+
+  str = write_whole(exp, mantis, str, form);
+  str = write_width(str, form, start);
+
+  return str;
+}
+
+char *write_whole(double exp, double man, char *str, format_t *form) {
+  int i = 0;
+
+  long long mantisa = (long long)man;
+
+  if (mantisa == 0) {
+    str[i++] = '0';
+  } else {
+    while (mantisa != 0) {
+      str[i++] = (mantisa % 10) + '0';
+      mantisa /= 10;
+    }
+  }
+
+  int len = i;
+  for (int j = 0; j < len / 2; j++) {
+    char temp = str[j];
+    str[j] = str[len - j - 1];
+    str[len - j - 1] = temp;
+  }
+
+  if (form->accuracy || form->flags.sharp) {
+    str[i++] = '.';
+  }
+
+  str = write_fractional(exp, &str[i], form);
+
+  return str;
+}
+
+char *write_fractional(double exp, char *str, format_t *form) {
+  double rounding_offset = 0.5 / pow(10, form->accuracy);
+  exp += rounding_offset;
+
+  for (int i = 0; i < form->accuracy; ++i) {
+    exp *= 10;
+    int digit = (int)exp;
+    *str++ = digit + '0';
+    exp -= digit;
+  }
+
+  return str;
+}
+
+char *write_width(char *str, format_t *form, char *start) {
+  int len = (int)(str - start);
+  char symb = ' ';
+
+  if (form->flags.zero && !form->flags.minus) {
+    symb = '0';
+  }
+
+  if (form->width > len) {
+    int width = form->width - len;
+
+    if (!form->flags.minus) {
+      for (int i = len; i >= 0; --i) {
+        start[i + width] = start[i];
+      }
+
+      for (int j = 0; j < width; ++j) {
+        start[j] = symb;
+      }
+
+      if (form->flags.zero && start[width] == '-') {
+        start[width] = '0';
+        *start = '-';
+      }
+    } else {
+      for (int i = 0; i < width; ++i) {
+        start[len + i] = symb;
+      }
+    }
+
+    str = start + form->width;
   }
 
   return str;

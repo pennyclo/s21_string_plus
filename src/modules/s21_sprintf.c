@@ -154,9 +154,9 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     case 'd':
       str = format_int(form, str, arguments);
       break;
-    // case 'e':
-    //   format_e(form, str);
-    //   break;
+    case 'e':
+      str = format_e(form, str, arguments);
+      break;
     // case 'E':
     //   format_E(form, str);
     //   break;
@@ -388,42 +388,37 @@ char *write_space(format_t *form, char *str, s21_size_t length) {
 }
 
 char *format_float(format_t *form, char *str, va_list arguments) {
-  long double num = 0;
+  long double num = 0, mantis = 0, exp = 0;
   char *start = str;
 
+  str = processing_float(str, form, arguments, &num);
+  exp = modfl(num, &mantis);
+  str = write_whole(exp, mantis, str, form);
+  str = write_width(str, form, start);
+
+  return str;
+}
+
+char *processing_float(char *str, format_t *form, va_list arguments,
+                       long double *num) {
   if (form->length == 'L') {
-    num = va_arg(arguments, long double);
+    *num = va_arg(arguments, long double);
   } else {
-    num = va_arg(arguments, double);
+    *num = va_arg(arguments, double);
   }
 
-  if (form->flags.plus && num >= 0.0) {
+  if (form->flags.plus && *num >= 0) {
     *str++ = '+';
-  } else if (form->flags.space && num >= 0.0) {
+  } else if (form->flags.space && *num >= 0) {
     *str++ = ' ';
-  } else if (num < 0.0) {
+  } else if (signbit(*num)) {
     *str++ = '-';
-    num *= -1;
+    *num = -*num;
   }
 
   if (!form->accur) {
     form->accuracy = 6;
   }
-
-  long double mantis = 0, exp = 0;
-
-  switch (form->length) {
-    case 'L':
-      exp = modfl(num, &mantis);
-      break;
-
-    default:
-      exp = modfl(num, &mantis);
-      break;
-  }
-
-  str = write_whole(exp, mantis, str, form);
-  str = write_width(str, form, start);
 
   return str;
 }
@@ -506,4 +501,70 @@ char *write_width(char *str, format_t *form, char *start) {
   }
 
   return str;
+}
+
+char *format_e(format_t *form, char *str, va_list arguments) {
+  long double num = 0, mantis = 0, exp = 0;
+  char *start = str;
+  int count = 0;
+  bool mantisa = true, zero = false;
+
+  str = processing_float(str, form, arguments, &num);
+
+  if (num == 0) {
+    zero = true;
+  } else if ((long long)num > 0) {
+    while ((long long)num > 1) {
+      num *= 0.1;
+      count++;
+    }
+  } else {
+    mantisa = false;
+
+    while ((long long)num == 0) {
+      num *= 10;
+      count++;
+    }
+  }
+
+  exp = modfl(num, &mantis);
+  str = write_whole(exp, mantis, str, form);
+  str = exp_coef(str, mantisa, count, zero);
+  str = write_width(str, form, start);
+
+  return str;
+}
+
+char *exp_coef(char *str, bool mantisa, int count, bool zero) {
+  int i = 0;
+
+  *str++ = 'e';
+
+  if (mantisa) {
+    *str++ = '+';
+  } else {
+    *str++ = '-';
+  }
+
+  if (count < 10) {
+    *str++ = '0';
+  }
+
+  if (zero) {
+    *str++ = '0';
+  }
+
+  while (count != 0) {
+    str[i++] = (count % 10) + '0';
+    count /= 10;
+  }
+
+  int len = i;
+  for (int j = 0; j < len / 2; j++) {
+    char temp = str[j];
+    str[j] = str[len - j - 1];
+    str[len - j - 1] = temp;
+  }
+
+  return &str[i];
 }

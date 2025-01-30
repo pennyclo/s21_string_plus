@@ -69,5 +69,9 @@ char *format_float(format_t *form, char *str, va_list arguments);
 char *write_whole(double exp, double man, char *str, format_t *form);
 char *write_fractional(double exp, char *str, format_t *form);
 char *write_width(char *str, format_t *form, char *start);
+char *format_e(format_t *form, char *str, va_list arguments);
+char *processing_float(char *str, format_t *form, va_list arguments,
+                       long double *num);
+char *exp_coef(char *str, bool mantisa, int count, bool zero);
 
 #endif  // SRC_INCLUDE_S21_SPRINTF_H_

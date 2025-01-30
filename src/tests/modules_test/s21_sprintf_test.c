@@ -597,6 +597,300 @@ START_TEST(s21_sprintf_float_21) {
 }
 END_TEST
 
+START_TEST(s21_sprintf_exp_1) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%e";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_2) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%.2e";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_3) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%10.3e";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_4) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%-10.3e";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_5) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%*e";
+  double num = -123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, 30, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, 30, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_6) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%e";
+  double num = 0.0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_7) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%e";
+  double num = 123456789.123456789;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_8) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%.0e";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_9) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%e";
+  double num = 0.0001;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_10) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%e";
+  double num = -0.00001;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_11) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%.e";
+  double num = -0.00001;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_12) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%0.15e";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_13) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%0.15e";
+  double num = -123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_14) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%+0.15Le";
+  long double num = -123.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_15) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%+0.15Le";
+  long double num = 1233.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_16) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "% 0.15Le";
+  long double num = 1233.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_17) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "% 0.15Le";
+  long double num = -1233.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_18) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%#.*Le";
+  long double num = -1233.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, 15, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, 15, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_19) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%#.e";
+  double num = -0.00001;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_20) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%-0.15Le";
+  long double num = 1233.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_exp_21) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%050Le";
+  long double num = -1233.4566543;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
 START_TEST(s21_sprintf_int_1) {
   char buffer_sprintf[20] = {0};
   char buffer_s21_sprintf[20] = {0};
@@ -663,6 +957,30 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_float, s21_sprintf_float_20);
   tcase_add_test(tc_s21_sprintf_float, s21_sprintf_float_21);
   suite_add_tcase(string, tc_s21_sprintf_float);
+
+  TCase *tc_s21_sprintf_exp = tcase_create("s21_sprintf exp test");
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_1);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_2);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_3);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_4);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_5);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_6);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_7);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_8);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_9);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_10);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_11);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_12);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_13);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_14);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_15);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_16);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_17);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_18);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_19);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_20);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_21);
+  suite_add_tcase(string, tc_s21_sprintf_exp);
 
   TCase *tc_s21_sprintf_int = tcase_create("s21_sprintf int test");
   tcase_add_test(tc_s21_sprintf_int, s21_sprintf_int_1);

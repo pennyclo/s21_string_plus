@@ -13,6 +13,7 @@
 #ifndef SRC_INCLUDE_S21_SPRINTF_H_
 #define SRC_INCLUDE_S21_SPRINTF_H_
 
+#include <ctype.h>
 #include <limits.h>
 #include <math.h>
 #include <stdarg.h>
@@ -25,6 +26,7 @@
 #include "include/common.h"
 #include "include/s21_atoi.h"
 #include "include/s21_memcpy.h"
+#include "include/s21_memmove.h"
 #include "include/s21_memset.h"
 #include "include/s21_strcat.h"
 #include "include/s21_strcpy.h"

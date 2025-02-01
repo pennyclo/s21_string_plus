@@ -190,9 +190,9 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     // case 'n':
     //   format_n(form, str);
     //   break;
-    // case 'i':
-    //   format_i(form, str);
-    //   break;
+    case 'i':
+      str = format_int(form, str, arguments);
+      break;
     case '%':
       *str = '%';
       ++str;
@@ -236,44 +236,86 @@ char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
 }
 
 char *format_int(format_t *form, char *str, va_list arguments) {
-  long long num = va_arg(arguments, long long);
-  int i = 1, arg_length = num >= 0 ? 0 : 1, temp = num;
-
-  while (temp != 0) {
-    arg_length++;
-    temp /= 10;
-  }
+  long long int num = va_arg(arguments, long long int);
+  int i = 0, arg_length = num >= 0 ? 0 : 1;
 
   switch (form->length) {
     case 'h':
       num = (short)num;
       break;
     case 'l':
-      num = (long)num;
+      num = (long int)num;
       break;
     default:
       num = (int)num;
       break;
   }
 
-  if (form->flags.plus && num >= 0) {
+  long long temp = num;
+  while (temp != 0) {
+    arg_length++;
+    temp /= 10;
+  }
+
+  if (form->flags.plus && num >= 0 &&
+      (!form->accur || form->accuracy <= arg_length)) {
     *str++ = '+';
-  } else if (form->flags.space && num >= 0) {
+  } else if (form->flags.space && num >= 0 &&
+             (!form->accur || form->accuracy <= arg_length)) {
     *str++ = ' ';
-  } else if (num < 0) {
+  } else if (num < 0 && (!form->accur || form->accuracy <= arg_length)) {
     *str++ = '-';
     num *= -1;
   }
 
-  if (!form->flags.minus && num < pow(10, form->width - 1)) {
+  if (!form->flags.minus && num < pow(10, form->width - 1) &&
+      (!form->accur || form->accuracy <= arg_length)) {
     char symb = ' ';
 
-    if (form->flags.zero) {
+    if (form->flags.zero && !form->accur) {
       symb = '0';
     }
     while (i < form->width - arg_length) {
       *str++ = symb;
       ++i;
+    }
+  } else if (!form->flags.minus && form->accur && arg_length < form->accuracy) {
+    if (form->width) {
+      while (i < form->width - form->accuracy) {
+        *str++ = ' ';
+        ++i;
+      }
+      if (form->flags.plus && num >= 0) {
+        *--str = '+';
+        str++;
+      } else if (num < 0) {
+        *--str = '-';
+        str++;
+        num *= -1;
+      }
+      for (int j = 0; j < form->accuracy - arg_length; j++) {
+        *str++ = '0';
+      }
+    } else {
+      if (form->flags.plus && num >= 0) {
+        *--str = '+';
+        str++;
+      } else if (num < 0) {
+        *--str = '-';
+        str++;
+        num *= -1;
+      }
+      while (i < form->accuracy - arg_length) {
+        *str++ = '0';
+        ++i;
+      }
+    }
+  }
+
+  if (form->flags.minus && form->accur && form->accuracy > arg_length) {
+    for (int j = 0; j < form->accuracy - arg_length; j++) {
+      *str++ = '0';
+      i++;
     }
   }
 

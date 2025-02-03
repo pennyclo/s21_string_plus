@@ -74,6 +74,6 @@ char *write_width(char *str, format_t *form, char *start);
 char *format_e(format_t *form, char *str, va_list arguments);
 char *processing_float(char *str, format_t *form, va_list arguments,
                        long double *num);
-char *exp_coef(char *str, bool mantisa, int count, bool zero);
+char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero);
 
 #endif  // SRC_INCLUDE_S21_SPRINTF_H_

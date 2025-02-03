@@ -157,9 +157,9 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     case 'e':
       str = format_e(form, str, arguments);
       break;
-    // case 'E':
-    //   format_E(form, str);
-    //   break;
+    case 'E':
+      str = format_e(form, str, arguments);
+      break;
     case 'f':
       str = format_float(form, str, arguments);
       break;
@@ -571,16 +571,20 @@ char *format_e(format_t *form, char *str, va_list arguments) {
 
   exp = modfl(num, &mantis);
   str = write_whole(exp, mantis, str, form);
-  str = exp_coef(str, mantisa, count, zero);
+  str = exp_coef(form, str, mantisa, count, zero);
   str = write_width(str, form, start);
 
   return str;
 }
 
-char *exp_coef(char *str, bool mantisa, int count, bool zero) {
+char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero) {
   int i = 0;
 
-  *str++ = 'e';
+  if (form->spec == 'e') {
+    *str++ = 'e';
+  } else if (form->spec == 'E') {
+    *str++ = 'E';
+  }
 
   if (mantisa) {
     *str++ = '+';

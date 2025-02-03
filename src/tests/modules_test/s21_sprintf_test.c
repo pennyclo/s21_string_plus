@@ -891,6 +891,20 @@ START_TEST(s21_sprintf_exp_21) {
 }
 END_TEST
 
+START_TEST(s21_sprintf_exp_22) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%E";
+  double num = 123.456;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
 START_TEST(s21_sprintf_int_1) {
   char buffer_sprintf[20] = {0};
   char buffer_s21_sprintf[20] = {0};
@@ -1386,6 +1400,7 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_19);
   tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_20);
   tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_21);
+  tcase_add_test(tc_s21_sprintf_exp, s21_sprintf_exp_22);
   suite_add_tcase(string, tc_s21_sprintf_exp);
 
   TCase *tc_s21_sprintf_int = tcase_create("s21_sprintf int test");

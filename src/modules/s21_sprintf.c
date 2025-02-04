@@ -169,9 +169,9 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     // case 'G':
     //   format_G(form, str);
     //   break;
-    // case 'o':
-    //   format_o(form, str);
-    //   break;
+    case 'o':
+      str = format_int(form, str, arguments);
+      break;
     case 's':
       str = format_string(form, str, arguments, crt);
       break;
@@ -266,8 +266,15 @@ char *format_int(format_t *form, char *str, va_list arguments) {
     }
   }
 
+  if (form->spec == 'o') {
+    num = decimal_to_octal(num);
+    if (form->flags.sharp) {
+      arg_length++;
+    }
+  }
+
   long long temp = num;
-  if (!temp) {
+  if (!temp && form->spec != 'o') {
     arg_length++;
   }
   while (temp != 0) {
@@ -337,7 +344,11 @@ char *format_int(format_t *form, char *str, va_list arguments) {
     }
   }
 
-  for (int j = arg_length - 1; j >= 0; j--) {
+  int j = arg_length - 1;
+  if (form->spec == 'o' && form->flags.sharp) {
+    *(str + j) = '0';
+  }
+  for (j; j >= 0; j--) {
     *(str + j) = num % 10 + '0';
     num /= 10;
   }
@@ -352,6 +363,19 @@ char *format_int(format_t *form, char *str, va_list arguments) {
   }
 
   return str;
+}
+
+unsigned int decimal_to_octal(unsigned int decimal_num) {
+  unsigned int octal_num = 0, remainder, i = 1;
+
+  while (decimal_num != 0) {
+    remainder = decimal_num % 8;
+    octal_num += remainder * i;
+    i *= 10;
+    decimal_num /= 8;
+  }
+
+  return octal_num;
 }
 
 char *format_string(format_t *form, char *str, va_list arguments, int *crt) {

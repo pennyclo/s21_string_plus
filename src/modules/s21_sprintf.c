@@ -175,9 +175,9 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     case 's':
       str = format_string(form, str, arguments, crt);
       break;
-    // case 'u':
-    //   format_u(form, str);
-    //   break;
+    case 'u':
+      str = format_int(form, str, arguments);
+      break;
     // case 'x':
     //   format_x(form, str);
     //   break;
@@ -239,19 +239,37 @@ char *format_int(format_t *form, char *str, va_list arguments) {
   long long int num = va_arg(arguments, long long int);
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
-  switch (form->length) {
-    case 'h':
-      num = (short)num;
-      break;
-    case 'l':
-      num = (long int)num;
-      break;
-    default:
-      num = (int)num;
-      break;
+  if (form->spec == 'o' || form->spec == 'u' || form->spec == 'x' ||
+      form->spec == 'X') {
+    switch (form->length) {
+      case 'h':
+        num = (unsigned short)num;
+        break;
+      case 'l':
+        num = (unsigned long int)num;
+        break;
+      default:
+        num = (unsigned int)num;
+        break;
+    }
+  } else {
+    switch (form->length) {
+      case 'h':
+        num = (short)num;
+        break;
+      case 'l':
+        num = (long int)num;
+        break;
+      default:
+        num = (int)num;
+        break;
+    }
   }
 
   long long temp = num;
+  if (!temp) {
+    arg_length++;
+  }
   while (temp != 0) {
     arg_length++;
     temp /= 10;

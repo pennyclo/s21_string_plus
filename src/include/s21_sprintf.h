@@ -62,6 +62,7 @@ const char *value_specifier(const char *format, format_t *form);
 char *type_definition(format_t *form, char *str, va_list arguments, int *crt);
 char *format_char(format_t *form, char *str, va_list arguments, int *crt);
 char *format_int(format_t *form, char *str, va_list arguments);
+unsigned int decimal_to_octal(unsigned int decimal_num);
 void check_bool_flags(format_t *form, const char *format);
 char *format_string(format_t *form, char *str, va_list arguments, int *crt);
 char *write_space(format_t *form, char *str, s21_size_t length);

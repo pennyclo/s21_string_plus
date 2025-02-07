@@ -163,12 +163,12 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     case 'f':
       str = format_float(form, str, arguments);
       break;
-    // case 'g':
-    //   format_g(form, str);
-    //   break;
-    // case 'G':
-    //   format_G(form, str);
-    //   break;
+    case 'g':
+      str = format_g(form, str, arguments);
+      break;
+    case 'G':
+      str = format_g(form, str, arguments);
+      break;
     case 'o':
       str = format_int(form, str, arguments);
       break;
@@ -348,7 +348,8 @@ char *format_int(format_t *form, char *str, va_list arguments) {
   if (form->spec == 'o' && form->flags.sharp) {
     *(str + j) = '0';
   }
-  for (j; j >= 0; j--) {
+
+  for (; j >= 0; j--) {
     *(str + j) = num % 10 + '0';
     num /= 10;
   }
@@ -477,7 +478,7 @@ char *format_float(format_t *form, char *str, va_list arguments) {
 
   str = processing_float(str, form, arguments, &num);
   exp = modfl(num, &mantis);
-  str = write_whole(exp, mantis, str, form);
+  str = write_whole(&exp, mantis, str, form);
   str = write_width(str, form, start);
 
   return str;
@@ -507,7 +508,7 @@ char *processing_float(char *str, format_t *form, va_list arguments,
   return str;
 }
 
-char *write_whole(double exp, double man, char *str, format_t *form) {
+char *write_whole(long double *exp, double man, char *str, format_t *form) {
   int i = 0;
 
   long long mantisa = (long long)man;
@@ -528,7 +529,7 @@ char *write_whole(double exp, double man, char *str, format_t *form) {
     str[len - j - 1] = temp;
   }
 
-  if (form->accuracy || form->flags.sharp) {
+  if ((form->accuracy) || form->flags.sharp) {
     str[i++] = '.';
   }
 
@@ -537,15 +538,15 @@ char *write_whole(double exp, double man, char *str, format_t *form) {
   return str;
 }
 
-char *write_fractional(double exp, char *str, format_t *form) {
+char *write_fractional(long double *exp, char *str, format_t *form) {
   double rounding_offset = 0.5 / pow(10, form->accuracy);
-  exp += rounding_offset;
+  *exp += rounding_offset;
 
   for (int i = 0; i < form->accuracy; ++i) {
-    exp *= 10;
-    int digit = (int)exp;
+    *exp *= 10;
+    int digit = (int)*exp;
     *str++ = digit + '0';
-    exp -= digit;
+    *exp -= digit;
   }
 
   return str;
@@ -612,7 +613,7 @@ char *format_e(format_t *form, char *str, va_list arguments) {
   }
 
   exp = modfl(num, &mantis);
-  str = write_whole(exp, mantis, str, form);
+  str = write_whole(&exp, mantis, str, form);
   str = exp_coef(form, str, mantisa, count, zero);
   str = write_width(str, form, start);
 
@@ -622,9 +623,9 @@ char *format_e(format_t *form, char *str, va_list arguments) {
 char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero) {
   int i = 0;
 
-  if (form->spec == 'e') {
+  if (form->spec == 'e' || form->spec == 'g') {
     *str++ = 'e';
-  } else if (form->spec == 'E') {
+  } else if (form->spec == 'E' || form->spec == 'G') {
     *str++ = 'E';
   }
 
@@ -655,4 +656,64 @@ char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero) {
   }
 
   return &str[i];
+}
+
+char *format_g(format_t *form, char *str, va_list arguments) {
+  long double num = 0, mantis = 0, exp = 0;
+  char *start = str;
+  int count = 0;
+  bool mantisa = true, zero = false;
+
+  str = processing_float(str, form, arguments, &num);
+
+  long double num_float = num;
+
+  if (num == 0) {
+    zero = true;
+  } else if ((long long)num > 0) {
+    while ((long long)num > 1) {
+      num *= 0.1;
+      count++;
+    }
+  } else {
+    mantisa = false;
+
+    while ((long long)num == 0) {
+      num *= 10;
+      count++;
+    }
+  }
+
+  if (count > 4 || (form->accuracy - count) <= 0) {
+    form->accuracy -= 1;
+    exp = modfl(num, &mantis);
+    str = write_whole(&exp, mantis, str, form);
+    str = processing_g(str, form);
+    str = exp_coef(form, str, mantisa, count, zero);
+    str = write_width(str, form, start);
+  } else {
+    if (mantisa) {
+      form->accuracy -= ++count;
+    }
+    exp = modfl(num_float, &mantis);
+    str = write_whole(&exp, mantis, str, form);
+    str = processing_g(str, form);
+    str = write_width(str, form, start);
+  }
+
+  return str;
+}
+
+char *processing_g(char *str, format_t *form) {
+  if (!form->flags.sharp) {
+    while (*--str == '0' || *str == '.') {
+      if (*(str + 1) == '.') {
+        break;
+      }
+    }
+
+    str++;
+  }
+
+  return str;
 }

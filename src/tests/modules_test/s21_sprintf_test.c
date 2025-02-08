@@ -2067,6 +2067,175 @@ START_TEST(s21_sprintf_g_22) {
 }
 END_TEST
 
+START_TEST(s21_sprintf_n_1) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Hello, world!%n";
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_2) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Hello, %s!%n";
+  char *str = "world";
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, str, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, str, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_3) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Number: %d%n";
+  int num = 12345;
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, num, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_4) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Float: %.2f%n";
+  float num = 123.456;
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, num, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, num, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_5) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Char: %c%n";
+  char ch = 'A';
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ch, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, ch, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_6) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Multiple: %d %f %c%n";
+  int num = 123;
+  float fnum = 45.67;
+  char ch = 'X';
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf =
+      sprintf(buffer_sprintf, format, num, fnum, ch, &count_sprintf);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, num, fnum, ch,
+                                    &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_7) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Empty%n";
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_8) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%n";
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_9) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Hello%n, world!";
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_n_10) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Hello, %s!%n Goodbye!";
+  char *str = "world";
+  int count_sprintf = 0, count_s21_sprintf = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, str, &count_sprintf);
+  int res_s21_sprintf =
+      s21_sprintf(buffer_s21_sprintf, format, str, &count_s21_sprintf);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+  ck_assert_int_eq(count_sprintf, count_s21_sprintf);
+}
+END_TEST
+
 Suite *s21_sprintf_case_1(void) {
   Suite *string = suite_create("\ns21_sprintf (s21_sprintf case 1)\n");
 
@@ -2242,6 +2411,19 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_g, s21_sprintf_g_21);
   tcase_add_test(tc_s21_sprintf_g, s21_sprintf_g_22);
   suite_add_tcase(string, tc_s21_sprintf_g);
+
+  TCase *tc_s21_sprintf_n = tcase_create("s21_sprintf n test");
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_1);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_2);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_3);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_4);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_5);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_6);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_7);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_8);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_9);
+  tcase_add_test(tc_s21_sprintf_g, s21_sprintf_n_10);
+  suite_add_tcase(string, tc_s21_sprintf_n);
 
   return string;
 }

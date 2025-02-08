@@ -12,6 +12,9 @@
 
 #include "include/s21_sprintf.h"
 
+// static char *format_pointer(format_t *form, char *str, va_list arguments);
+static void format_n(format_t *form, char *str, va_list arguments, char *start);
+
 int s21_sprintf(char *str, const char *format, ...) {
   va_list arguments;
   va_start(arguments, format);
@@ -45,12 +48,7 @@ int s21_sprintf(char *str, const char *format, ...) {
     format = value_length(format, &form);
     format = value_specifier(format, &form);
 
-    str = type_definition(&form, str, arguments, &crt);
-    // printf("<%d>\n", form.width);
-    // printf("<%d>\n", form.accuracy);
-    // printf("<%c>\n", form.flag);
-    // printf("<%c>\n", form.lenght);
-    // printf("<%c>\n", form.spec);
+    str = type_definition(&form, str, arguments, &crt, start);
   }
 
   *str = '\0';
@@ -146,7 +144,8 @@ const char *value_specifier(const char *format, format_t *form) {
   return format;
 }
 
-char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
+char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
+                      char *start) {
   switch (form->spec) {
     case 'c':
       str = format_char(form, str, arguments, crt);
@@ -185,11 +184,11 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt) {
     //   format_X(form, str);
     //   break;
     // case 'p':
-    //   format_p(form, str);
+    //   str = format_pointer(form, str, arguments);
     //   break;
-    // case 'n':
-    //   format_n(form, str);
-    //   break;
+    case 'n':
+      format_n(form, str, arguments, start);
+      break;
     case 'i':
       str = format_int(form, str, arguments);
       break;
@@ -716,4 +715,15 @@ char *processing_g(char *str, format_t *form) {
   }
 
   return str;
+}
+
+// static char *format_pointer(format_t *form, char *str, va_list arguments) {
+//   void *ptr = va_arg(arguments, void *);
+// }
+
+static void format_n(format_t *form, char *str, va_list arguments,
+                     char *start) {
+  int count = (int)(str - start);
+  int *argument = va_arg(arguments, int *);
+  *argument = count;
 }

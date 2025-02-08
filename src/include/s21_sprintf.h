@@ -59,7 +59,8 @@ const char *value_accuracy(const char *format, format_t *form,
 int check_flags(const char c);
 const char *value_length(const char *format, format_t *form);
 const char *value_specifier(const char *format, format_t *form);
-char *type_definition(format_t *form, char *str, va_list arguments, int *crt);
+char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
+                      char *start);
 char *format_char(format_t *form, char *str, va_list arguments, int *crt);
 char *format_int(format_t *form, char *str, va_list arguments);
 unsigned int decimal_to_octal(unsigned int decimal_num);

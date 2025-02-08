@@ -13,6 +13,7 @@
 #define SRC_INCLUDE_S21_STRERROR_H_
 
 #include "include/common.h"
+#include "include/s21_sprintf.h"
 
 char *s21_strerror(int errnum);
 

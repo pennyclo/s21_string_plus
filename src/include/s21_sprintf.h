@@ -18,6 +18,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>   // before delete
 #include <stdlib.h>  // before delete
 #include <string.h>

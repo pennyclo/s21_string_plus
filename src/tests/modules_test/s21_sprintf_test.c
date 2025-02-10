@@ -2460,6 +2460,150 @@ START_TEST(s21_sprintf_x_16) {
 }
 END_TEST
 
+START_TEST(s21_sprintf_p_1) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%p";
+  int x = 42;
+  void *ptr = &x;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_2) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Pointer: %p";
+  double y = 3.14;
+  void *ptr = &y;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_3) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%p";
+  char str[] = "Hello";
+  void *ptr = str;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_4) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Pointer: %p";
+  int *ptr = NULL;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_5) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%p";
+  void *ptr = (void *)0x12345678;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_6) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Pointer: %p";
+  int arr[5] = {1, 2, 3, 4, 5};
+  void *ptr = arr;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_7) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%p";
+  void *ptr = (void *)0xabcdef;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_8) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Pointer: %p";
+  void *ptr = (void *)0x0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_9) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%p";
+  void *ptr = (void *)0xffffffff;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_p_10) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Pointer: %p";
+  void *ptr = (void *)0x7fff12345678;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, ptr);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, ptr);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
 Suite *s21_sprintf_case_1(void) {
   Suite *string = suite_create("\ns21_sprintf (s21_sprintf case 1)\n");
 
@@ -2667,6 +2811,19 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_x, s21_sprintf_x_15);
   tcase_add_test(tc_s21_sprintf_x, s21_sprintf_x_16);
   suite_add_tcase(string, tc_s21_sprintf_x);
+
+  TCase *tc_s21_sprintf_p = tcase_create("s21_sprintf pointer test");
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_1);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_2);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_3);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_4);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_5);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_6);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_7);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_8);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_9);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_10);
+  suite_add_tcase(string, tc_s21_sprintf_p);
 
   return string;
 }

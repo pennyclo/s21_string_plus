@@ -14,6 +14,7 @@
 
 static char *format_pointer(char *str, va_list arguments);
 static void format_n(char *str, va_list arguments, char *start);
+static void decimal_to_hex(unsigned int decimal, char *hex, int is_big);
 
 int s21_sprintf(char *str, const char *format, ...) {
   va_list arguments;
@@ -236,6 +237,7 @@ char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
 
 char *format_int(format_t *form, char *str, va_list arguments) {
   long long int num = va_arg(arguments, long long int);
+  char hex[256] = {0};
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
   if (form->spec == 'o' || form->spec == 'u' || form->spec == 'x' ||
@@ -271,14 +273,24 @@ char *format_int(format_t *form, char *str, va_list arguments) {
       arg_length++;
     }
   }
-
-  long long temp = num;
-  if (!temp && form->spec != 'o') {
-    arg_length++;
+  if (form->spec == 'x' || form->spec == 'X') {
+    decimal_to_hex(num, hex, form->spec == 'X');
+    if (form->flags.sharp) {
+      arg_length += 2;
+    }
   }
-  while (temp != 0) {
-    arg_length++;
-    temp /= 10;
+
+  if (form->spec == 'x' || form->spec == 'X') {
+    arg_length += s21_strlen(hex);
+  } else {
+    long long temp = num;
+    if (!temp && form->spec != 'o') {
+      arg_length++;
+    }
+    while (temp != 0) {
+      arg_length++;
+      temp /= 10;
+    }
   }
 
   if (form->flags.plus && num >= 0 &&
@@ -344,13 +356,27 @@ char *format_int(format_t *form, char *str, va_list arguments) {
   }
 
   int j = arg_length - 1;
+  int j_lim = 0;
   if (form->spec == 'o' && form->flags.sharp) {
     *(str + j) = '0';
   }
+  if (form->flags.sharp && (form->spec == 'x' || form->spec == 'X')) {
+    *(str) = '0';
+    *(str + 1) = form->spec;
+    j_lim = 2;
+  }
 
-  for (; j >= 0; j--) {
-    *(str + j) = num % 10 + '0';
-    num /= 10;
+  if (form->spec == 'x' || form->spec == 'X') {
+    int h_i = s21_strlen(hex) - 1;
+    for (; j >= j_lim; j--) {
+      *(str + j) = hex[h_i];
+      h_i--;
+    }
+  } else {
+    for (; j >= 0; j--) {
+      *(str + j) = num % 10 + '0';
+      num /= 10;
+    }
   }
 
   str += arg_length;
@@ -363,6 +389,34 @@ char *format_int(format_t *form, char *str, va_list arguments) {
   }
 
   return str;
+}
+
+static void decimal_to_hex(unsigned int decimal, char *hex, int is_big) {
+  if (decimal == 0) {
+    hex[0] = '0';
+  } else {
+    char temp[256];
+    int remainder, index = 0;
+
+    while (decimal > 0) {
+      remainder = decimal % 16;
+      if (remainder < 10) {
+        temp[index] = remainder + '0';
+      } else {
+        if (is_big) {
+          temp[index] = remainder - 10 + 'A';
+        } else {
+          temp[index] = remainder - 10 + 'a';
+        }
+      }
+      index++;
+      decimal /= 16;
+    }
+
+    for (int i = index - 1; i >= 0; i--) {
+      hex[index - 1 - i] = temp[i];
+    }
+  }
 }
 
 unsigned int decimal_to_octal(unsigned int decimal_num) {
@@ -722,18 +776,24 @@ static char *format_pointer(char *str, va_list arguments) {
   const char hex_digits[] = "0123456789abcdef";
   int i = 0;
 
-  str[i++] = '0';
-  str[i++] = 'x';
+  if (address) {
+    str[i++] = '0';
+    str[i++] = 'x';
 
-  int shift = (sizeof(uintptr_t) * 8) - 4;
-  while (shift >= 0 && ((address >> shift) & 0xF) == 0) {
-    shift -= 4;
-  }
+    int shift = (sizeof(uintptr_t) * 8) - 4;
+    while (shift >= 0 && ((address >> shift) & 0xF) == 0) {
+      shift -= 4;
+    }
 
-  while (shift >= 0) {
-    int digit = (address >> shift) & 0xF;
-    str[i++] = hex_digits[digit];
-    shift -= 4;
+    while (shift >= 0) {
+      int digit = (address >> shift) & 0xF;
+      str[i++] = hex_digits[digit];
+      shift -= 4;
+    }
+
+  } else {
+    strcat(str, "(nil)");
+    i = 5;
   }
 
   return &str[i++];

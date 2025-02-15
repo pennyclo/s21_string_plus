@@ -63,7 +63,15 @@ const char *value_specifier(const char *format, format_t *form);
 char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
                       char *start);
 char *format_char(format_t *form, char *str, va_list arguments, int *crt);
-char *format_int(format_t *form, char *str, va_list arguments);
+char *format_d(format_t *form, char *str, va_list arguments);
+char *format_u(format_t *form, char *str, va_list arguments);
+char *format_o(format_t *form, char *str, va_list arguments);
+char *format_x(format_t *form, char *str, va_list arguments);
+int get_length_int(format_t *form, long long int num);
+char *formating_before_int(format_t *form, char *str, long long int *num,
+                           int *arg_length, int *i);
+char *formating_after_int(format_t *form, char *str, long long int *num,
+                          int *arg_length, int *i);
 unsigned int decimal_to_octal(unsigned int decimal_num);
 void check_bool_flags(format_t *form, const char *format);
 char *format_string(format_t *form, char *str, va_list arguments, int *crt);

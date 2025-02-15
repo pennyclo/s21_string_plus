@@ -152,7 +152,7 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
       str = format_char(form, str, arguments, crt);
       break;
     case 'd':
-      str = format_int(form, str, arguments);
+      str = format_d(form, str, arguments);
       break;
     case 'e':
       str = format_e(form, str, arguments);
@@ -170,19 +170,19 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
       str = format_g(form, str, arguments);
       break;
     case 'o':
-      str = format_int(form, str, arguments);
+      str = format_o(form, str, arguments);
       break;
     case 's':
       str = format_string(form, str, arguments, crt);
       break;
     case 'u':
-      str = format_int(form, str, arguments);
+      str = format_u(form, str, arguments);
       break;
     case 'x':
-      str = format_int(form, str, arguments);
+      str = format_x(form, str, arguments);
       break;
     case 'X':
-      str = format_int(form, str, arguments);
+      str = format_x(form, str, arguments);
       break;
     case 'p':
       str = format_pointer(str, arguments);
@@ -191,7 +191,7 @@ char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
       format_n(str, arguments, start);
       break;
     case 'i':
-      str = format_int(form, str, arguments);
+      str = format_d(form, str, arguments);
       break;
     case '%':
       *str = '%';
@@ -235,156 +235,244 @@ char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
   return str;
 }
 
-char *format_int(format_t *form, char *str, va_list arguments) {
+char *format_d(format_t *form, char *str, va_list arguments) {
+  long long int num = va_arg(arguments, long long int);
+  int i = 0, arg_length = num >= 0 ? 0 : 1;
+
+  switch (form->length) {
+    case 'h':
+      num = (short)num;
+      break;
+    case 'l':
+      num = (long int)num;
+      break;
+    default:
+      num = (int)num;
+      break;
+  }
+
+  arg_length += get_length_int(form, num);
+  str = formating_before_int(form, str, &num, &arg_length, &i);
+
+  int j = arg_length - 1;
+  for (; j >= 0; j--) {
+    *(str + j) = num % 10 + '0';
+    num /= 10;
+  }
+
+  str += arg_length;
+
+  str = formating_after_int(form, str, &num, &arg_length, &i);
+
+  return str;
+}
+
+char *format_u(format_t *form, char *str, va_list arguments) {
+  long long int num = va_arg(arguments, long long int);
+  int i = 0, arg_length = num >= 0 ? 0 : 1;
+
+  switch (form->length) {
+    case 'h':
+      num = (unsigned short)num;
+      break;
+    case 'l':
+      num = (unsigned long int)num;
+      break;
+    default:
+      num = (unsigned int)num;
+      break;
+  }
+
+  arg_length += get_length_int(form, num);
+  str = formating_before_int(form, str, &num, &arg_length, &i);
+
+  int j = arg_length - 1;
+  for (; j >= 0; j--) {
+    *(str + j) = num % 10 + '0';
+    num /= 10;
+  }
+
+  str += arg_length;
+
+  str = formating_after_int(form, str, &num, &arg_length, &i);
+
+  return str;
+}
+
+char *format_o(format_t *form, char *str, va_list arguments) {
+  long long int num = va_arg(arguments, long long int);
+  int i = 0, arg_length = num >= 0 ? 0 : 1;
+
+  switch (form->length) {
+    case 'h':
+      num = (unsigned short)num;
+      break;
+    case 'l':
+      num = (unsigned long int)num;
+      break;
+    default:
+      num = (unsigned int)num;
+      break;
+  }
+
+  num = decimal_to_octal(num);
+  if (form->flags.sharp) {
+    arg_length++;
+  }
+
+  arg_length += get_length_int(form, num);
+  str = formating_before_int(form, str, &num, &arg_length, &i);
+
+  int j = arg_length - 1;
+  if (form->flags.sharp) {
+    *(str + j) = '0';
+  }
+  for (; j >= 0; j--) {
+    *(str + j) = num % 10 + '0';
+    num /= 10;
+  }
+
+  str += arg_length;
+
+  str = formating_after_int(form, str, &num, &arg_length, &i);
+
+  return str;
+}
+
+char *format_x(format_t *form, char *str, va_list arguments) {
   long long int num = va_arg(arguments, long long int);
   char hex[256] = {0};
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
-  if (form->spec == 'o' || form->spec == 'u' || form->spec == 'x' ||
-      form->spec == 'X') {
-    switch (form->length) {
-      case 'h':
-        num = (unsigned short)num;
-        break;
-      case 'l':
-        num = (unsigned long int)num;
-        break;
-      default:
-        num = (unsigned int)num;
-        break;
-    }
-  } else {
-    switch (form->length) {
-      case 'h':
-        num = (short)num;
-        break;
-      case 'l':
-        num = (long int)num;
-        break;
-      default:
-        num = (int)num;
-        break;
-    }
+  switch (form->length) {
+    case 'h':
+      num = (unsigned short)num;
+      break;
+    case 'l':
+      num = (unsigned long int)num;
+      break;
+    default:
+      num = (unsigned int)num;
+      break;
   }
 
-  if (form->spec == 'o') {
-    num = decimal_to_octal(num);
-    if (form->flags.sharp) {
-      arg_length++;
-    }
-  }
-  if (form->spec == 'x' || form->spec == 'X') {
-    decimal_to_hex(num, hex, form->spec == 'X');
-    if (form->flags.sharp) {
-      arg_length += 2;
-    }
+  decimal_to_hex(num, hex, form->spec == 'X');
+  if (form->flags.sharp) {
+    arg_length += 2;
   }
 
-  if (form->spec == 'x' || form->spec == 'X') {
-    arg_length += s21_strlen(hex);
-  } else {
-    long long temp = num;
-    if (!temp && form->spec != 'o') {
-      arg_length++;
-    }
-    while (temp != 0) {
-      arg_length++;
-      temp /= 10;
-    }
+  arg_length += s21_strlen(hex);
+  str = formating_before_int(form, str, &num, &arg_length, &i);
+
+  int j = arg_length - 1;
+  int j_lim = 0;
+  if (form->flags.sharp) {
+    *(str) = '0';
+    *(str + 1) = form->spec;
+    j_lim = 2;
+  }
+  int h_i = s21_strlen(hex) - 1;
+  for (; j >= j_lim; j--) {
+    *(str + j) = hex[h_i];
+    h_i--;
   }
 
-  if (form->flags.plus && num >= 0 &&
-      (!form->accur || form->accuracy <= arg_length)) {
-    *str++ = '+';
-  } else if (form->flags.space && num >= 0 &&
-             (!form->accur || form->accuracy <= arg_length)) {
-    *str++ = ' ';
-  } else if (num < 0 && (!form->accur || form->accuracy <= arg_length)) {
-    *str++ = '-';
-    num *= -1;
+  str += arg_length;
+
+  str = formating_after_int(form, str, &num, &arg_length, &i);
+
+  return str;
+}
+
+int get_length_int(format_t *form, long long int num) {
+  int arg_length = 0;
+
+  long long temp = num;
+  if (!temp && form->spec != 'o') {
+    arg_length++;
+  }
+  while (temp != 0) {
+    arg_length++;
+    temp /= 10;
   }
 
-  if (!form->flags.minus && num < pow(10, form->width - 1) &&
-      (!form->accur || form->accuracy <= arg_length)) {
+  return arg_length;
+}
+
+char *formating_before_int(format_t *form, char *str, long long int *num,
+                           int *arg_length, int *i) {
+  if (form->flags.plus && *num >= 0 &&
+      (!form->accur || form->accuracy <= *arg_length)) {
+    *(str)++ = '+';
+  } else if (form->flags.space && *num >= 0 &&
+             (!form->accur || form->accuracy <= *arg_length)) {
+    *(str)++ = ' ';
+  } else if (*num < 0 && (!form->accur || form->accuracy <= *arg_length)) {
+    *(str)++ = '-';
+    *num *= -1;
+  }
+
+  if (!form->flags.minus && *num < pow(10, form->width - 1) &&
+      (!form->accur || form->accuracy <= *arg_length)) {
     char symb = ' ';
 
     if (form->flags.zero && !form->accur) {
       symb = '0';
     }
-    while (i < form->width - arg_length) {
-      *str++ = symb;
-      ++i;
+    while (*i < form->width - *arg_length) {
+      *(str)++ = symb;
+      ++(*i);
     }
-  } else if (!form->flags.minus && form->accur && arg_length < form->accuracy) {
+  } else if (!form->flags.minus && form->accur &&
+             *arg_length < form->accuracy) {
     if (form->width) {
-      while (i < form->width - form->accuracy) {
-        *str++ = ' ';
-        ++i;
+      while (*i < form->width - form->accuracy) {
+        *(str)++ = ' ';
+        ++(*i);
       }
-      if (form->flags.plus && num >= 0) {
-        *--str = '+';
+      if (form->flags.plus && *num >= 0) {
+        *--(str) = '+';
         str++;
-      } else if (num < 0) {
-        *--str = '-';
-        str++;
-        num *= -1;
+      } else if (*num < 0) {
+        *--(str) = '-';
+        (str)++;
+        *num *= -1;
       }
-      for (int j = 0; j < form->accuracy - arg_length; j++) {
-        *str++ = '0';
+      for (int j = 0; j < form->accuracy - *arg_length; j++) {
+        *(str)++ = '0';
       }
     } else {
-      if (form->flags.plus && num >= 0) {
-        *--str = '+';
-        str++;
-      } else if (num < 0) {
-        *--str = '-';
-        str++;
-        num *= -1;
+      if (form->flags.plus && *num >= 0) {
+        *--(str) = '+';
+        (str)++;
+      } else if (*num < 0) {
+        *--(str) = '-';
+        (str)++;
+        *num *= -1;
       }
-      while (i < form->accuracy - arg_length) {
-        *str++ = '0';
-        ++i;
+      while (*i < form->accuracy - *arg_length) {
+        *(str)++ = '0';
+        ++(*i);
       }
     }
   }
 
-  if (form->flags.minus && form->accur && form->accuracy > arg_length) {
-    for (int j = 0; j < form->accuracy - arg_length; j++) {
-      *str++ = '0';
-      i++;
+  if (form->flags.minus && form->accur && form->accuracy > *arg_length) {
+    for (int j = 0; j < form->accuracy - *arg_length; j++) {
+      *(str)++ = '0';
+      (*i)++;
     }
   }
 
-  int j = arg_length - 1;
-  int j_lim = 0;
-  if (form->spec == 'o' && form->flags.sharp) {
-    *(str + j) = '0';
-  }
-  if (form->flags.sharp && (form->spec == 'x' || form->spec == 'X')) {
-    *(str) = '0';
-    *(str + 1) = form->spec;
-    j_lim = 2;
-  }
+  return str;
+}
 
-  if (form->spec == 'x' || form->spec == 'X') {
-    int h_i = s21_strlen(hex) - 1;
-    for (; j >= j_lim; j--) {
-      *(str + j) = hex[h_i];
-      h_i--;
-    }
-  } else {
-    for (; j >= 0; j--) {
-      *(str + j) = num % 10 + '0';
-      num /= 10;
-    }
-  }
-
-  str += arg_length;
-
+char *formating_after_int(format_t *form, char *str, long long int *num,
+                          int *arg_length, int *i) {
   if (form->flags.minus) {
-    while (i < form->width - arg_length) {
+    while (*i < form->width - *arg_length) {
       *str++ = ' ';
-      ++i;
+      ++(*i);
     }
   }
 

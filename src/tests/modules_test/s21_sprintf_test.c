@@ -12,6 +12,7 @@
 
 #include "tests/include_test/s21_sprintf_test.h"
 
+#include <stdio.h>
 #include <wchar.h>
 
 START_TEST(s21_sprintf_char_1) {
@@ -1549,6 +1550,34 @@ START_TEST(s21_sprintf_uns_dec_15) {
 }
 END_TEST
 
+START_TEST(s21_sprintf_uns_dec_16) {
+  char buffer_sprintf[20] = {0};
+  char buffer_s21_sprintf[20] = {0};
+  char format[] = "%hu";
+  unsigned short x = 34463;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, x, x);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, x, x);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_uns_dec_17) {
+  char buffer_sprintf[20] = {0};
+  char buffer_s21_sprintf[20] = {0};
+  char format[] = "%lu";
+  unsigned long int x = 99999;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, x, x);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, x, x);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
 START_TEST(s21_sprintf_uns_oct_1) {
   char buffer_sprintf[20] = {0};
   char buffer_s21_sprintf[20] = {0};
@@ -1750,6 +1779,34 @@ START_TEST(s21_sprintf_uns_oct_15) {
   char buffer_s21_sprintf[20] = {0};
   char format[] = "%05.0o";
   unsigned int x = 0;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, x, x);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, x, x);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_uns_oct_16) {
+  char buffer_sprintf[20] = {0};
+  char buffer_s21_sprintf[20] = {0};
+  char format[] = "%lo";
+  unsigned long int x = 123212438;
+
+  int res_sprintf = sprintf(buffer_sprintf, format, x, x);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, x, x);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_uns_oct_17) {
+  char buffer_sprintf[20] = {0};
+  char buffer_s21_sprintf[20] = {0};
+  char format[] = "%ho";
+  unsigned short x = 44758;
 
   int res_sprintf = sprintf(buffer_sprintf, format, x, x);
   int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format, x, x);
@@ -2604,6 +2661,32 @@ START_TEST(s21_sprintf_p_10) {
 }
 END_TEST
 
+START_TEST(s21_sprintf_percent_1) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "Percent: %%%%%%";
+
+  int res_sprintf = sprintf(buffer_sprintf, format);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
+START_TEST(s21_sprintf_percent_2) {
+  char buffer_sprintf[100] = {0};
+  char buffer_s21_sprintf[100] = {0};
+  char format[] = "%";
+
+  int res_sprintf = sprintf(buffer_sprintf, format);
+  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format);
+
+  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
+  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
+}
+END_TEST
+
 Suite *s21_sprintf_case_1(void) {
   Suite *string = suite_create("\ns21_sprintf (s21_sprintf case 1)\n");
 
@@ -2735,6 +2818,8 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_uns_dec, s21_sprintf_uns_dec_13);
   tcase_add_test(tc_s21_sprintf_uns_dec, s21_sprintf_uns_dec_14);
   tcase_add_test(tc_s21_sprintf_uns_dec, s21_sprintf_uns_dec_15);
+  tcase_add_test(tc_s21_sprintf_uns_dec, s21_sprintf_uns_dec_16);
+  tcase_add_test(tc_s21_sprintf_uns_dec, s21_sprintf_uns_dec_17);
   suite_add_tcase(string, tc_s21_sprintf_uns_dec);
 
   TCase *tc_s21_sprintf_uns_oct = tcase_create("s21_sprintf uns oct test");
@@ -2753,6 +2838,8 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_uns_oct, s21_sprintf_uns_oct_13);
   tcase_add_test(tc_s21_sprintf_uns_oct, s21_sprintf_uns_oct_14);
   tcase_add_test(tc_s21_sprintf_uns_oct, s21_sprintf_uns_oct_15);
+  tcase_add_test(tc_s21_sprintf_uns_oct, s21_sprintf_uns_oct_16);
+  tcase_add_test(tc_s21_sprintf_uns_oct, s21_sprintf_uns_oct_17);
   suite_add_tcase(string, tc_s21_sprintf_uns_oct);
 
   TCase *tc_s21_sprintf_g = tcase_create("s21_sprintf g G test");
@@ -2824,6 +2911,11 @@ Suite *s21_sprintf_case_1(void) {
   tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_9);
   tcase_add_test(tc_s21_sprintf_p, s21_sprintf_p_10);
   suite_add_tcase(string, tc_s21_sprintf_p);
+
+  TCase *tc_s21_sprintf_percent = tcase_create("s21_sprintf percent test");
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_percent_1);
+  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_percent_2);
+  suite_add_tcase(string, tc_s21_sprintf_percent);
 
   return string;
 }

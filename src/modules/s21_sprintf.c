@@ -12,13 +12,69 @@
 
 #include "include/s21_sprintf.h"
 
-static char *format_pointer(char *str, va_list arguments);
-static void format_n(char *str, va_list arguments, char *start);
+typedef struct {
+  bool minus;
+  bool plus;
+  bool space;
+  bool zero;
+  bool sharp;
+} flags_t;
+
+typedef struct {
+  flags_t flags;
+  bool accur;
+  int width;
+  int accuracy;
+  int length;
+  char spec;
+} format_t;
+
+static int check_digit(const char c);
+static int presence_point(const char c);
+static int check_flags(const char c);
+static const char *val_width(const char *format, format_t *form, va_list args);
+static void bool_flags(format_t *form, const char *format);
+static const char *val_accur(const char *format, format_t *form, va_list args);
+static const char *val_length(const char *format, format_t *form);
+static const char *val_specifier(const char *format, format_t *form);
+static char *type_def(format_t *form, char *str, va_list args, int *crt,
+                      char *start);
+static char *format_char(format_t *form, char *str, va_list args, int *crt);
+static char *format_d(format_t *form, char *str, va_list args);
+static char *format_u(format_t *form, char *str, va_list args);
+static char *format_o(format_t *form, char *str, va_list args);
+static char *format_x(format_t *form, char *str, va_list args);
+static int get_length_int(format_t *form, long long int num);
+static char *form_bef_int(format_t *form, char *str, long long int *num,
+                          int *arg_length, int *i);
+static char *form_aft_int(format_t *form, char *str, int *arg_length, int *i);
+static unsigned int decimal_to_octal(unsigned int decimal_num);
+static char *format_string(format_t *form, char *str, va_list args, int *crt);
+static char *write_wstring(wchar_t *wbuf, char *str, int *crt, format_t *form);
+static char *write_string(char *buf, char *str, format_t *form);
+static char *write_space(format_t *form, char *str, s21_size_t length);
+static char *format_float(format_t *form, char *str, va_list args);
+static char *process_float(char *str, format_t *form, va_list args,
+                           long double *num);
+static char *write_whole(long double *exp, double man, char *str,
+                         format_t *form);
+static char *write_fractional(long double *exp, char *str, format_t *form);
+static char *write_width(char *str, format_t *form, char *start);
+static char *format_e(format_t *form, char *str, va_list args);
+static char *exp_coef(format_t *form, char *str, bool mantisa, int count,
+                      bool zero);
+static char *format_g(format_t *form, char *str, va_list args);
+static char *processing_g(char *str, format_t *form);
+static char *format_pointer(char *str, va_list args);
+static void format_n(char *str, va_list args, char *start);
 static void decimal_to_hex(unsigned int decimal, char *hex, int is_big);
+static char *sign_int(format_t *form, long long *num, char *str);
+static char *val_width_int(format_t *form, int *i, char *str, long long *num,
+                           int *arg_length);
 
 int s21_sprintf(char *str, const char *format, ...) {
-  va_list arguments;
-  va_start(arguments, format);
+  va_list args;
+  va_start(args, format);
   int crt = 1;
 
   char *start = str;
@@ -34,27 +90,29 @@ int s21_sprintf(char *str, const char *format, ...) {
     }
 
     while (check_flags(*format)) {
-      check_bool_flags(&form, format);
+      bool_flags(&form, format);
       ++format;
     }
 
-    format = value_width(format, &form, arguments);
+    format = val_width(format, &form, args);
 
     if (presence_point(*format)) {
       form.accur = true;
       ++format;
-      format = value_accuracy(format, &form, arguments);
+      format = val_accur(format, &form, args);
     }
 
-    format = value_length(format, &form);
-    format = value_specifier(format, &form);
+    format = val_length(format, &form);
+    format = val_specifier(format, &form);
 
-    str = type_definition(&form, str, arguments, &crt, start);
+    str = type_def(&form, str, args, &crt, start);
+
+    ++format;
   }
 
   *str = '\0';
 
-  va_end(arguments);
+  va_end(args);
 
   if (crt) {
     crt = (int)(str - start);
@@ -65,31 +123,31 @@ int s21_sprintf(char *str, const char *format, ...) {
   return crt;
 }
 
-int check_digit(const char c) { return (c >= '0' && c <= '9'); }
+static int check_digit(const char c) { return (c >= '0' && c <= '9'); }
 
-int presence_point(const char c) { return c == '.'; }
+static int presence_point(const char c) { return c == '.'; }
 
-int check_flags(const char c) {
+static int check_flags(const char c) {
   char *flags = "-+#0 ";
   char ch[2] = {c, '\0'};
   return (s21_strcspn(ch, flags) == 0);
 }
 
-const char *value_width(const char *format, format_t *form, va_list arguments) {
+static const char *val_width(const char *format, format_t *form, va_list args) {
   if (*format != '*') {
     form->width = s21_atoi(format);
     while (check_digit(*format)) {
       ++format;
     }
   } else {
-    form->width = va_arg(arguments, int);
+    form->width = va_arg(args, int);
     ++format;
   }
 
   return format;
 }
 
-void check_bool_flags(format_t *form, const char *format) {
+static void bool_flags(format_t *form, const char *format) {
   switch (*format) {
     case '-':
       form->flags.minus = true;
@@ -109,22 +167,21 @@ void check_bool_flags(format_t *form, const char *format) {
   }
 }
 
-const char *value_accuracy(const char *format, format_t *form,
-                           va_list arguments) {
+static const char *val_accur(const char *format, format_t *form, va_list args) {
   if (*format != '*') {
     form->accuracy = s21_atoi(format);
     while (check_digit(*format)) {
       ++format;
     }
   } else {
-    form->accuracy = va_arg(arguments, int);
+    form->accuracy = va_arg(args, int);
     ++format;
   }
 
   return format;
 }
 
-const char *value_length(const char *format, format_t *form) {
+static const char *val_length(const char *format, format_t *form) {
   char *lenght = "Llh";
   if (s21_strcspn(format, lenght) == 0) {
     form->length = *format;
@@ -134,81 +191,102 @@ const char *value_length(const char *format, format_t *form) {
   return format;
 }
 
-const char *value_specifier(const char *format, format_t *form) {
+static const char *val_specifier(const char *format, format_t *form) {
   char *specifiers = "cdeEfgGosuxXpni%";
 
   if (s21_strcspn(format, specifiers) == 0) {
     form->spec = *format;
+  } else {
     ++format;
+    form->spec = *format;
   }
 
   return format;
 }
 
-char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
+static char *type_def(format_t *form, char *str, va_list args, int *crt,
                       char *start) {
   switch (form->spec) {
     case 'c':
-      str = format_char(form, str, arguments, crt);
+      *crt = 1;
+      str = format_char(form, str, args, crt);
       break;
     case 'd':
-      str = format_d(form, str, arguments);
+      *crt = 1;
+      str = format_d(form, str, args);
       break;
     case 'e':
-      str = format_e(form, str, arguments);
+      *crt = 1;
+      str = format_e(form, str, args);
       break;
     case 'E':
-      str = format_e(form, str, arguments);
+      *crt = 1;
+      str = format_e(form, str, args);
       break;
     case 'f':
-      str = format_float(form, str, arguments);
+      *crt = 1;
+      str = format_float(form, str, args);
       break;
     case 'g':
-      str = format_g(form, str, arguments);
+      *crt = 1;
+      str = format_g(form, str, args);
       break;
     case 'G':
-      str = format_g(form, str, arguments);
+      *crt = 1;
+      str = format_g(form, str, args);
       break;
     case 'o':
-      str = format_o(form, str, arguments);
+      *crt = 1;
+      str = format_o(form, str, args);
       break;
     case 's':
-      str = format_string(form, str, arguments, crt);
+      *crt = 1;
+      str = format_string(form, str, args, crt);
       break;
     case 'u':
-      str = format_u(form, str, arguments);
+      *crt = 1;
+      str = format_u(form, str, args);
       break;
     case 'x':
-      str = format_x(form, str, arguments);
+      *crt = 1;
+      str = format_x(form, str, args);
       break;
     case 'X':
-      str = format_x(form, str, arguments);
+      *crt = 1;
+      str = format_x(form, str, args);
       break;
     case 'p':
-      str = format_pointer(str, arguments);
+      *crt = 1;
+      str = format_pointer(str, args);
       break;
     case 'n':
-      format_n(str, arguments, start);
+      *crt = 1;
+      format_n(str, args, start);
       break;
     case 'i':
-      str = format_d(form, str, arguments);
+      *crt = 1;
+      str = format_d(form, str, args);
       break;
     case '%':
+      *crt = 1;
       *str = '%';
       ++str;
+      break;
+    default:
+      *crt = 0;
       break;
   }
 
   return str;
 }
 
-char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
+static char *format_char(format_t *form, char *str, va_list args, int *crt) {
   if (!form->flags.minus) {
     str = write_space(form, str, 1);
   }
 
   if (form->length == 'l') {
-    wchar_t big_c = va_arg(arguments, wchar_t);
+    wchar_t big_c = va_arg(args, wchar_t);
     char tmp[MB_CUR_MAX];
     mbstate_t state;
     s21_memset(&state, 0, sizeof(state));
@@ -222,7 +300,7 @@ char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
     }
 
   } else {
-    char c = (char)va_arg(arguments, int);
+    char c = (char)va_arg(args, int);
     *str++ = c;
 
     *str = '\0';
@@ -235,8 +313,8 @@ char *format_char(format_t *form, char *str, va_list arguments, int *crt) {
   return str;
 }
 
-char *format_d(format_t *form, char *str, va_list arguments) {
-  long long int num = va_arg(arguments, long long int);
+static char *format_d(format_t *form, char *str, va_list args) {
+  long long int num = va_arg(args, long long int);
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
   switch (form->length) {
@@ -252,7 +330,7 @@ char *format_d(format_t *form, char *str, va_list arguments) {
   }
 
   arg_length += get_length_int(form, num);
-  str = formating_before_int(form, str, &num, &arg_length, &i);
+  str = form_bef_int(form, str, &num, &arg_length, &i);
 
   int j = arg_length - 1;
   for (; j >= 0; j--) {
@@ -262,13 +340,13 @@ char *format_d(format_t *form, char *str, va_list arguments) {
 
   str += arg_length;
 
-  str = formating_after_int(form, str, &num, &arg_length, &i);
+  str = form_aft_int(form, str, &arg_length, &i);
 
   return str;
 }
 
-char *format_u(format_t *form, char *str, va_list arguments) {
-  long long int num = va_arg(arguments, long long int);
+static char *format_u(format_t *form, char *str, va_list args) {
+  long long int num = va_arg(args, long long int);
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
   switch (form->length) {
@@ -284,7 +362,7 @@ char *format_u(format_t *form, char *str, va_list arguments) {
   }
 
   arg_length += get_length_int(form, num);
-  str = formating_before_int(form, str, &num, &arg_length, &i);
+  str = form_bef_int(form, str, &num, &arg_length, &i);
 
   int j = arg_length - 1;
   for (; j >= 0; j--) {
@@ -294,13 +372,13 @@ char *format_u(format_t *form, char *str, va_list arguments) {
 
   str += arg_length;
 
-  str = formating_after_int(form, str, &num, &arg_length, &i);
+  str = form_aft_int(form, str, &arg_length, &i);
 
   return str;
 }
 
-char *format_o(format_t *form, char *str, va_list arguments) {
-  long long int num = va_arg(arguments, long long int);
+static char *format_o(format_t *form, char *str, va_list args) {
+  long long int num = va_arg(args, long long int);
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
   switch (form->length) {
@@ -321,7 +399,7 @@ char *format_o(format_t *form, char *str, va_list arguments) {
   }
 
   arg_length += get_length_int(form, num);
-  str = formating_before_int(form, str, &num, &arg_length, &i);
+  str = form_bef_int(form, str, &num, &arg_length, &i);
 
   int j = arg_length - 1;
   if (form->flags.sharp) {
@@ -334,13 +412,13 @@ char *format_o(format_t *form, char *str, va_list arguments) {
 
   str += arg_length;
 
-  str = formating_after_int(form, str, &num, &arg_length, &i);
+  str = form_aft_int(form, str, &arg_length, &i);
 
   return str;
 }
 
-char *format_x(format_t *form, char *str, va_list arguments) {
-  long long int num = va_arg(arguments, long long int);
+static char *format_x(format_t *form, char *str, va_list args) {
+  long long int num = va_arg(args, long long int);
   char hex[256] = {0};
   int i = 0, arg_length = num >= 0 ? 0 : 1;
 
@@ -362,7 +440,7 @@ char *format_x(format_t *form, char *str, va_list arguments) {
   }
 
   arg_length += s21_strlen(hex);
-  str = formating_before_int(form, str, &num, &arg_length, &i);
+  str = form_bef_int(form, str, &num, &arg_length, &i);
 
   int j = arg_length - 1;
   int j_lim = 0;
@@ -379,12 +457,12 @@ char *format_x(format_t *form, char *str, va_list arguments) {
 
   str += arg_length;
 
-  str = formating_after_int(form, str, &num, &arg_length, &i);
+  str = form_aft_int(form, str, &arg_length, &i);
 
   return str;
 }
 
-int get_length_int(format_t *form, long long int num) {
+static int get_length_int(format_t *form, long long int num) {
   int arg_length = 0;
 
   long long temp = num;
@@ -399,8 +477,8 @@ int get_length_int(format_t *form, long long int num) {
   return arg_length;
 }
 
-char *formating_before_int(format_t *form, char *str, long long int *num,
-                           int *arg_length, int *i) {
+static char *form_bef_int(format_t *form, char *str, long long int *num,
+                          int *arg_length, int *i) {
   if (form->flags.plus && *num >= 0 &&
       (!form->accur || form->accuracy <= *arg_length)) {
     *(str)++ = '+';
@@ -425,36 +503,7 @@ char *formating_before_int(format_t *form, char *str, long long int *num,
     }
   } else if (!form->flags.minus && form->accur &&
              *arg_length < form->accuracy) {
-    if (form->width) {
-      while (*i < form->width - form->accuracy) {
-        *(str)++ = ' ';
-        ++(*i);
-      }
-      if (form->flags.plus && *num >= 0) {
-        *--(str) = '+';
-        str++;
-      } else if (*num < 0) {
-        *--(str) = '-';
-        (str)++;
-        *num *= -1;
-      }
-      for (int j = 0; j < form->accuracy - *arg_length; j++) {
-        *(str)++ = '0';
-      }
-    } else {
-      if (form->flags.plus && *num >= 0) {
-        *--(str) = '+';
-        (str)++;
-      } else if (*num < 0) {
-        *--(str) = '-';
-        (str)++;
-        *num *= -1;
-      }
-      while (*i < form->accuracy - *arg_length) {
-        *(str)++ = '0';
-        ++(*i);
-      }
-    }
+    str = val_width_int(form, i, str, num, arg_length);
   }
 
   if (form->flags.minus && form->accur && form->accuracy > *arg_length) {
@@ -467,8 +516,43 @@ char *formating_before_int(format_t *form, char *str, long long int *num,
   return str;
 }
 
-char *formating_after_int(format_t *form, char *str, long long int *num,
-                          int *arg_length, int *i) {
+static char *val_width_int(format_t *form, int *i, char *str, long long *num,
+                           int *arg_length) {
+  if (form->width) {
+    while (*i < form->width - form->accuracy) {
+      *(str)++ = ' ';
+      ++(*i);
+    }
+    str = sign_int(form, num, str);
+
+    for (int j = 0; j < form->accuracy - *arg_length; j++) {
+      *(str)++ = '0';
+    }
+  } else {
+    str = sign_int(form, num, str);
+    while (*i < form->accuracy - *arg_length) {
+      *(str)++ = '0';
+      ++(*i);
+    }
+  }
+
+  return str;
+}
+
+static char *sign_int(format_t *form, long long *num, char *str) {
+  if (form->flags.plus && *num >= 0) {
+    *--(str) = '+';
+    str++;
+  } else if (*num < 0) {
+    *--(str) = '-';
+    (str)++;
+    *num *= -1;
+  }
+
+  return str;
+}
+
+static char *form_aft_int(format_t *form, char *str, int *arg_length, int *i) {
   if (form->flags.minus) {
     while (*i < form->width - *arg_length) {
       *str++ = ' ';
@@ -507,7 +591,7 @@ static void decimal_to_hex(unsigned int decimal, char *hex, int is_big) {
   }
 }
 
-unsigned int decimal_to_octal(unsigned int decimal_num) {
+static unsigned int decimal_to_octal(unsigned int decimal_num) {
   unsigned int octal_num = 0, remainder, i = 1;
 
   while (decimal_num != 0) {
@@ -520,18 +604,18 @@ unsigned int decimal_to_octal(unsigned int decimal_num) {
   return octal_num;
 }
 
-char *format_string(format_t *form, char *str, va_list arguments, int *crt) {
+static char *format_string(format_t *form, char *str, va_list args, int *crt) {
   if (form->length == 'l') {
-    wchar_t *wbuf = va_arg(arguments, wchar_t *);
+    wchar_t *wbuf = va_arg(args, wchar_t *);
 
     if (wbuf == S21_NULL) {
       s21_strcpy(str, "(null)");
       str += 6;
     } else {
-      str = write_wide_string(wbuf, str, crt, form);
+      str = write_wstring(wbuf, str, crt, form);
     }
   } else {
-    char *buf = va_arg(arguments, char *);
+    char *buf = va_arg(args, char *);
 
     if (buf == S21_NULL) {
       s21_strcpy(str, "(null)");
@@ -544,7 +628,7 @@ char *format_string(format_t *form, char *str, va_list arguments, int *crt) {
   return str;
 }
 
-char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form) {
+static char *write_wstring(wchar_t *wbuf, char *str, int *crt, format_t *form) {
   mbstate_t state;
   s21_memset(&state, 0, sizeof(state));
 
@@ -579,7 +663,7 @@ char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form) {
   return str;
 }
 
-char *write_string(char *buf, char *str, format_t *form) {
+static char *write_string(char *buf, char *str, format_t *form) {
   s21_size_t len = s21_strlen(buf);
 
   if (form->accur && form->accuracy <= (int)len) {
@@ -603,7 +687,7 @@ char *write_string(char *buf, char *str, format_t *form) {
   return str;
 }
 
-char *write_space(format_t *form, char *str, s21_size_t length) {
+static char *write_space(format_t *form, char *str, s21_size_t length) {
   if (form->width && form->width > (int)length) {
     for (s21_size_t i = 0; i < form->width - length; ++i) {
       *str++ = ' ';
@@ -613,11 +697,11 @@ char *write_space(format_t *form, char *str, s21_size_t length) {
   return str;
 }
 
-char *format_float(format_t *form, char *str, va_list arguments) {
+static char *format_float(format_t *form, char *str, va_list args) {
   long double num = 0, mantis = 0, exp = 0;
   char *start = str;
 
-  str = processing_float(str, form, arguments, &num);
+  str = process_float(str, form, args, &num);
   exp = modfl(num, &mantis);
   str = write_whole(&exp, mantis, str, form);
   str = write_width(str, form, start);
@@ -625,12 +709,12 @@ char *format_float(format_t *form, char *str, va_list arguments) {
   return str;
 }
 
-char *processing_float(char *str, format_t *form, va_list arguments,
-                       long double *num) {
+static char *process_float(char *str, format_t *form, va_list args,
+                           long double *num) {
   if (form->length == 'L') {
-    *num = va_arg(arguments, long double);
+    *num = va_arg(args, long double);
   } else {
-    *num = va_arg(arguments, double);
+    *num = va_arg(args, double);
   }
 
   if (form->flags.plus && *num >= 0) {
@@ -649,7 +733,8 @@ char *processing_float(char *str, format_t *form, va_list arguments,
   return str;
 }
 
-char *write_whole(long double *exp, double man, char *str, format_t *form) {
+static char *write_whole(long double *exp, double man, char *str,
+                         format_t *form) {
   int i = 0;
 
   long long mantisa = (long long)man;
@@ -679,7 +764,7 @@ char *write_whole(long double *exp, double man, char *str, format_t *form) {
   return str;
 }
 
-char *write_fractional(long double *exp, char *str, format_t *form) {
+static char *write_fractional(long double *exp, char *str, format_t *form) {
   double rounding_offset = 0.5 / pow(10, form->accuracy);
   *exp += rounding_offset;
 
@@ -693,7 +778,7 @@ char *write_fractional(long double *exp, char *str, format_t *form) {
   return str;
 }
 
-char *write_width(char *str, format_t *form, char *start) {
+static char *write_width(char *str, format_t *form, char *start) {
   int len = (int)(str - start);
   char symb = ' ';
 
@@ -729,13 +814,13 @@ char *write_width(char *str, format_t *form, char *start) {
   return str;
 }
 
-char *format_e(format_t *form, char *str, va_list arguments) {
+static char *format_e(format_t *form, char *str, va_list args) {
   long double num = 0, mantis = 0, exp = 0;
   char *start = str;
   int count = 0;
   bool mantisa = true, zero = false;
 
-  str = processing_float(str, form, arguments, &num);
+  str = process_float(str, form, args, &num);
 
   if (num == 0) {
     zero = true;
@@ -761,7 +846,8 @@ char *format_e(format_t *form, char *str, va_list arguments) {
   return str;
 }
 
-char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero) {
+static char *exp_coef(format_t *form, char *str, bool mantisa, int count,
+                      bool zero) {
   int i = 0;
 
   if (form->spec == 'e' || form->spec == 'g') {
@@ -799,13 +885,13 @@ char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero) {
   return &str[i];
 }
 
-char *format_g(format_t *form, char *str, va_list arguments) {
+static char *format_g(format_t *form, char *str, va_list args) {
   long double num = 0, mantis = 0, exp = 0;
   char *start = str;
   int count = 0;
   bool mantisa = true, zero = false;
 
-  str = processing_float(str, form, arguments, &num);
+  str = process_float(str, form, args, &num);
 
   long double num_float = num;
 
@@ -845,7 +931,7 @@ char *format_g(format_t *form, char *str, va_list arguments) {
   return str;
 }
 
-char *processing_g(char *str, format_t *form) {
+static char *processing_g(char *str, format_t *form) {
   if (!form->flags.sharp) {
     while (*--str == '0' || *str == '.') {
       if (*(str + 1) == '.') {
@@ -859,8 +945,8 @@ char *processing_g(char *str, format_t *form) {
   return str;
 }
 
-static char *format_pointer(char *str, va_list arguments) {
-  uintptr_t address = va_arg(arguments, uintptr_t);
+static char *format_pointer(char *str, va_list args) {
+  uintptr_t address = va_arg(args, uintptr_t);
   const char hex_digits[] = "0123456789abcdef";
   int i = 0;
 
@@ -880,15 +966,15 @@ static char *format_pointer(char *str, va_list arguments) {
     }
 
   } else {
-    strcat(str, "(nil)");
+    s21_strcat(str, "(nil)");
     i = 5;
   }
 
   return &str[i++];
 }
 
-static void format_n(char *str, va_list arguments, char *start) {
+static void format_n(char *str, va_list args, char *start) {
   int count = (int)(str - start);
-  int *argument = va_arg(arguments, int *);
+  int *argument = va_arg(args, int *);
   *argument = count;
 }

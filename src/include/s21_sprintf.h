@@ -19,9 +19,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>   // before delete
-#include <stdlib.h>  // before delete
-#include <string.h>
+#include <stdlib.h>
 #include <wchar.h>
 
 #include "include/common.h"
@@ -34,59 +32,6 @@
 #include "include/s21_strcspn.h"
 #include "include/s21_strncpy.h"
 
-typedef struct {
-  bool minus;
-  bool plus;
-  bool space;
-  bool zero;
-  bool sharp;
-} flags_t;
-
-typedef struct {
-  flags_t flags;
-  bool accur;
-  int width;
-  int accuracy;
-  int length;
-  char spec;
-} format_t;
-
 int s21_sprintf(char *str, const char *format, ...);
-int check_digit(const char c);
-const char *value_width(const char *format, format_t *form, va_list arguments);
-int presence_point(const char c);
-const char *value_accuracy(const char *format, format_t *form,
-                           va_list arguments);
-int check_flags(const char c);
-const char *value_length(const char *format, format_t *form);
-const char *value_specifier(const char *format, format_t *form);
-char *type_definition(format_t *form, char *str, va_list arguments, int *crt,
-                      char *start);
-char *format_char(format_t *form, char *str, va_list arguments, int *crt);
-char *format_d(format_t *form, char *str, va_list arguments);
-char *format_u(format_t *form, char *str, va_list arguments);
-char *format_o(format_t *form, char *str, va_list arguments);
-char *format_x(format_t *form, char *str, va_list arguments);
-int get_length_int(format_t *form, long long int num);
-char *formating_before_int(format_t *form, char *str, long long int *num,
-                           int *arg_length, int *i);
-char *formating_after_int(format_t *form, char *str, long long int *num,
-                          int *arg_length, int *i);
-unsigned int decimal_to_octal(unsigned int decimal_num);
-void check_bool_flags(format_t *form, const char *format);
-char *format_string(format_t *form, char *str, va_list arguments, int *crt);
-char *write_space(format_t *form, char *str, s21_size_t length);
-char *write_wide_string(wchar_t *wbuf, char *str, int *crt, format_t *form);
-char *write_string(char *buf, char *str, format_t *form);
-char *format_float(format_t *form, char *str, va_list arguments);
-char *write_whole(long double *exp, double man, char *str, format_t *form);
-char *write_fractional(long double *exp, char *str, format_t *form);
-char *write_width(char *str, format_t *form, char *start);
-char *format_e(format_t *form, char *str, va_list arguments);
-char *processing_float(char *str, format_t *form, va_list arguments,
-                       long double *num);
-char *exp_coef(format_t *form, char *str, bool mantisa, int count, bool zero);
-char *format_g(format_t *form, char *str, va_list arguments);
-char *processing_g(char *str, format_t *form);
 
 #endif  // SRC_INCLUDE_S21_SPRINTF_H_

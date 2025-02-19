@@ -25,15 +25,20 @@ void *s21_to_upper(const char *str) {
   char *string = (char *)calloc(s21_strlen(str) + 1, sizeof(char));
   char *start = string;
 
-  while (*str) {
-    if (*str >= 'a' && *str <= 'z') {
-      *string = *str - 32;
-    } else {
-      *string = *str;
-    }
+  if (string && str) {
+    while (*str) {
+      if (*str >= 'a' && *str <= 'z') {
+        *string = *str - 32;
+      } else {
+        *string = *str;
+      }
 
-    ++str;
-    ++string;
+      ++str;
+      ++string;
+    }
+  } else {
+    free(string);
+    start = S21_NULL;
   }
 
   return start;

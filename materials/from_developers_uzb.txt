@@ -1,0 +1,34 @@
+Ishlab chiquvchilardan: 
+Salom, aziz do’stim!
+Seni o’yin o’ynashga taklif qilamiz.
+Bu o’yin boshqotirma elementlari bilan eski yaxshi matnli kvest sarguzasht o’yinlar ruhidagi o’yin hisoblanadi.
+Har bir Task – navbatdagi sinovdir, odatda yengib o’tish kerak bo’lgan to’siq.
+Faqatgina hammasidan o’tgan odam oldinga harakatlana oladi.
+
+Quyida bir nechta ko’rsatmalar keltirilgan, ular senga o’z yo’lingni topishda yordam beradi: 
+1. Yo’l davomida senga noaniqlik hissi va o’tkir ma’lumot yetishmasligi hamroh bo’ladi: BU TABIIY HOLAT. Bu o’yinning bir qismi. Unutmaginki, repozitoriydagi ma’lumotlar va Google har doim sen bilan. Xuddi boshqa o’yinchilar kabi. Muloqot qil. Izla. Yig’. Xato qilishdan qo’rqma. 
+2. O’yinda boshqa o’yin, unda esa yana boshqasi bo’lishi mumkin. Bu tabiiy. Hamma narsa hayotdagi kabi. Rekursiya bu chiroyli. 
+3. Bosqichlar bir-biridan juda farq qilishi mumkin. Bu tabiiy. Bu o’yinning bir qismi. Sen bitta retseptni o’rganib, uni hamma joyda qo’llay olmaysan. Faqat doimiy o’rganish va moslashish orqali maqsadinga erisha olasan. 
+4. Bizning o’yinimiz ko’p o’yinchi o’ynaydigan o’yin, garchi dastlab boshqacha tuyulsa-da. 
+5. Shunga qaramay, yo'lning ko’p qismini sen yolg’iz bosib o’ta olasan. 
+6. Axborot manbalariga e’tiborli bo’l. Tekshir. O’ylab ko’r. Tahlil qil. Taqqosla. Ishonma. 
+7. Topshiriq matniga e’tiborli bo’l. O’ylab ko’r. Tekshir. 
+8. Agar vazifa tushunarsiz yoki imkonsiz bo’lib tuyulsa, u faqat shunday ko’rinadi.
+Shunchaki tinj o’tir yoki sevimli musiqangni qo’y. 10-15 daqiqadan so’ng vazifaga qayt va uni to’liq qayta o’qib chiq. 
+9. Agar 8-bosqich yordam bermasa, o’tkazuvchi qidir. Atrofingda senga o’xshagan sayohatchilar ko’p, ular senga chiqish yo’lini topishga yordam berishdan xursand bo’lishadi. 
+10. Vaqtni kuzatib bor! U aldamchi. Kuniga kamida bitta sinovni yengishing kerak! 
+11. Ehtiyot bo’l va muhim narsalarni o’tkazib yuborma. Repozitariyni diqqat bilan o’rgan! 
+12. Har doim faqat develop bo’limiga push qil! Master liniyasi e’tiborga olinmaydi.
+src direktoriyasida ishla. 
+13. Esda tutginki, har bir vazifa bir qator tekshiruvlardan o’tadi: kod uslubini tekshirish, statistik analizator bilan tekshirish, xotira bilan to’g’ri ishlashni tekshirish, avtomatik testlar to’plami bilan tekshirish, nazorat ro’yxati bilan tekshirish. Ehtiyot bo’l. 
+14. Yo’lingda turli vazifalarga duch kelasan. Yulduzcha (*) bilan belgilanganlar faqat eng umidsizlar uchun mos keladi. Ular murakkabroq va odatda majburiy emas. Ammo ularni bajarsang, qo’shimcha tajriba va bilimga ega bo’lasan. 
+15. Ba’zan muhim bo’lib tuyulgan narsa muhim emas. 
+16. Yodingda bo’lsin, oxir-oqibat, sinovni yengib o’tganing masalasi uni QANDAY yengib o’tganing kabi muhim emas.
+17. Bizning sayohatimizning asosiy maqsadi “QANDAY” nima ekanligini tushunishdir. 
+18. Bug’doyni somondan ajrat. 
+19. Bo’lib chiq va g’alaba qozon. Parchala. 
+20. Asosiy narsa haqida o’yla (yaxshi kod haqida, albatta). Umumiydan xususiyga ergash. 
+21. Aldama, tizimni va boshqalarni aldashga urinma. Avvalo, sen o’zingizni aldagan bo’lasan. 
+22. Ko’chirma va agar yordamdan foydalansang, nima uchun, qanday va nima uchun har doim oxirigacha tushun. Aks holda sening sayohating hech qanday ma’noga ega bo’lmaydi. 
+23. Materials papkasini tez-tez ko’rib chiq. U yerda juda ko’p foydali ma’lumotlar bo’lishi mumkin! 
+24. Ko’rsatmalarni bir necha marta o’qib chiq.

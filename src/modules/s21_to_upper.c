@@ -1,7 +1,7 @@
 /**
  * @file s21_to_upper.c
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief
+ * @brief Implementation function s21_to_upper.
  * @version 1.0
  * @date 2025-02-14
  *

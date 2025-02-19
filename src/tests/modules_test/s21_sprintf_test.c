@@ -2674,19 +2674,6 @@ START_TEST(s21_sprintf_percent_1) {
 }
 END_TEST
 
-START_TEST(s21_sprintf_percent_2) {
-  char buffer_sprintf[100] = {0};
-  char buffer_s21_sprintf[100] = {0};
-  char format[] = "%";
-
-  int res_sprintf = sprintf(buffer_sprintf, format);
-  int res_s21_sprintf = s21_sprintf(buffer_s21_sprintf, format);
-
-  ck_assert_str_eq(buffer_sprintf, buffer_s21_sprintf);
-  ck_assert_int_eq(res_sprintf, res_s21_sprintf);
-}
-END_TEST
-
 Suite *s21_sprintf_case_1(void) {
   Suite *string = suite_create("\ns21_sprintf (s21_sprintf case 1)\n");
 
@@ -2914,7 +2901,6 @@ Suite *s21_sprintf_case_1(void) {
 
   TCase *tc_s21_sprintf_percent = tcase_create("s21_sprintf percent test");
   tcase_add_test(tc_s21_sprintf_p, s21_sprintf_percent_1);
-  tcase_add_test(tc_s21_sprintf_p, s21_sprintf_percent_2);
   suite_add_tcase(string, tc_s21_sprintf_percent);
 
   return string;

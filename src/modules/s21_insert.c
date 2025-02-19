@@ -11,6 +11,21 @@
 
 #include "include/s21_insert.h"
 
+/**
+ * @brief Inserts the string `str` into the string `src` at the specified index.
+ *
+ * The function creates a new string where the contents of `str` are inserted
+ * into `src` starting at the index `start_index`. If the index is out of bounds
+ * of the length of `src` or if `src` is an empty string, the function returns
+ * `S21_NULL`. The allocated memory for the new string must be freed by the
+ * caller.
+ *
+ * @param src The source string into which `str` will be inserted.
+ * @param str The string to be inserted into `src`.
+ * @param start_index The index in `src` at which `str` will be inserted.
+ * @return A pointer to the new string with the insertion result. Returns
+ * `S21_NULL` on error.
+ */
 void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
   s21_size_t len_src = s21_strlen(src);
   s21_size_t len_str = s21_strlen(str);

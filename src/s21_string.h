@@ -12,7 +12,9 @@
 #ifndef SRC_S21_STRING_H_
 #define SRC_S21_STRING_H_
 
+#include "include/common.h"
 #include "include/s21_atoi.h"
+#include "include/s21_insert.h"
 #include "include/s21_memchr.h"
 #include "include/s21_memcmp.h"
 #include "include/s21_memcpy.h"
@@ -34,6 +36,7 @@
 #include "include/s21_strspn.h"
 #include "include/s21_strstr.h"
 #include "include/s21_strtok.h"
+#include "include/s21_to_lower.h"
 #include "include/s21_to_upper.h"
 
 #endif  // SRC_S21_STRING_H_

@@ -13,6 +13,7 @@
 #define SRC_TESTS_MAIN_TEST_H_
 
 #include "tests/include_test/s21_atoi_test.h"
+#include "tests/include_test/s21_insert_test.h"
 #include "tests/include_test/s21_memchr_test.h"
 #include "tests/include_test/s21_memcmp_test.h"
 #include "tests/include_test/s21_memcpy_test.h"
@@ -34,5 +35,8 @@
 #include "tests/include_test/s21_strspn_test.h"
 #include "tests/include_test/s21_strstr_test.h"
 #include "tests/include_test/s21_strtok_test.h"
+#include "tests/include_test/s21_to_lower_test.h"
+#include "tests/include_test/s21_to_upper_test.h"
+#include "tests/include_test/s21_trim_test.h"
 
 #endif  // SRC_TESTS_MAIN_TEST_H_

@@ -24,8 +24,7 @@ int main(void) {
   SRunner *sr;
 
   sr = srunner_create(NULL);
-#ifdef TEST
-#define TEST
+
   srunner_add_suite(sr, s21_atoi_case_1());
   srunner_add_suite(sr, s21_strcat_case_1());
   srunner_add_suite(sr, s21_strlen_case_1());
@@ -49,8 +48,11 @@ int main(void) {
   srunner_add_suite(sr, s21_memchr_case_1());
   srunner_add_suite(sr, s21_memcmp_case_1());
   srunner_add_suite(sr, s21_memchr_case_1());
-#endif
   srunner_add_suite(sr, s21_sprintf_case_1());
+  srunner_add_suite(sr, s21_trim_case_1());
+  srunner_add_suite(sr, s21_insert_case_1());
+  srunner_add_suite(sr, s21_to_upper_case_1());
+  srunner_add_suite(sr, s21_to_lower_case_1());
 
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);

@@ -12,11 +12,14 @@
 #include "include/s21_trim.h"
 
 /**
- * @brief
+ * @brief Removes leading and trailing characters specified in trim_chars from
+ * the given string.
  *
- * @param src
- * @param trim_chars
- * @return void*
+ * @param src The input string to be trimmed.
+ * @param trim_chars The set of characters to be removed from the beginning and
+ * end of src.
+ * @return void* A newly allocated trimmed string, or NULL if src is empty or
+ * memory allocation fails.
  */
 void *s21_trim(const char *src, const char *trim_chars) {
   s21_size_t src_len = s21_strlen(src);

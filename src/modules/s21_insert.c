@@ -34,10 +34,10 @@ void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
   char *string = (char *)calloc(len_string + 1, sizeof(char));
   char *start = string;
 
-  if (len_src && len_src >= start_index && string) {
+  if (len_src >= start_index && string) {
     int i = 0;
 
-    while (*src != '\0') {
+    while (*src != '\0' || *str != '\0') {
       if (i < (int)start_index) {
         *string++ = *src++;
       } else if (*str != '\0') {

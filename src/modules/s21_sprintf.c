@@ -72,6 +72,20 @@ static char *sign_int(format_t *form, long long *num, char *str);
 static char *val_width_int(format_t *form, int *i, char *str, long long *num,
                            int *arg_length);
 
+/**
+ * @brief Formats and stores a series of characters and values into a string.
+ *
+ * This function formats data according to the provided format string and stores
+ * the result into the buffer pointed to by `str`. It supports flags, width,
+ * precision, length modifiers, and specifiers similar to the standard
+ * `sprintf`.
+ *
+ * @param str Pointer to the buffer where the resulting string is stored.
+ * @param format Format string that specifies how the data is formatted.
+ * @param ... Variable arguments to be formatted according to the format string.
+ * @return The number of characters written to the buffer (excluding the null
+ * terminator). Returns -1 if an error occurs during formatting.
+ */
 int s21_sprintf(char *str, const char *format, ...) {
   va_list args;
   va_start(args, format);

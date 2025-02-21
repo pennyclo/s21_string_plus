@@ -92,6 +92,15 @@ START_TEST(s21_to_upper_9) {
 }
 END_TEST
 
+START_TEST(s21_to_upper_10) {
+  char *src = S21_NULL;
+  char *result = s21_to_upper(src);
+
+  ck_assert_ptr_eq(result, S21_NULL);
+  free(result);
+}
+END_TEST
+
 Suite *s21_to_upper_case_1(void) {
   Suite *string = suite_create("\ns21_to_upper (s21_to_upper case 1)\n");
 
@@ -106,6 +115,7 @@ Suite *s21_to_upper_case_1(void) {
   tcase_add_test(tc_s21_to_upper, s21_to_upper_7);
   tcase_add_test(tc_s21_to_upper, s21_to_upper_8);
   tcase_add_test(tc_s21_to_upper, s21_to_upper_9);
+  tcase_add_test(tc_s21_to_upper, s21_to_upper_10);
 
   suite_add_tcase(string, tc_s21_to_upper);
 

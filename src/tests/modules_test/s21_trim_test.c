@@ -101,6 +101,16 @@ START_TEST(s21_trim_9) {
 }
 END_TEST
 
+START_TEST(s21_trim_10) {
+  char *src = S21_NULL;
+  char trim_chars[] = " ";
+  char *result = s21_trim(src, trim_chars);
+
+  ck_assert_ptr_eq(result, S21_NULL);
+  free(result);
+}
+END_TEST
+
 Suite *s21_trim_case_1(void) {
   Suite *string = suite_create("\ns21_trim (s21_trim case 1)\n");
 
@@ -115,6 +125,7 @@ Suite *s21_trim_case_1(void) {
   tcase_add_test(tc_s21_trim, s21_trim_7);
   tcase_add_test(tc_s21_trim, s21_trim_8);
   tcase_add_test(tc_s21_trim, s21_trim_9);
+  tcase_add_test(tc_s21_trim, s21_trim_10);
 
   suite_add_tcase(string, tc_s21_trim);
 

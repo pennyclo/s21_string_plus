@@ -22,12 +22,14 @@
  * memory allocation fails.
  */
 void *s21_trim(const char *src, const char *trim_chars) {
-  s21_size_t src_len = s21_strlen(src);
-  s21_size_t start = 0;
-  s21_size_t end = 0;
-  s21_size_t new_len = 0;
+  char *tmp = S21_NULL;
 
-  if (src_len) {
+  if (src) {
+    s21_size_t src_len = s21_strlen(src);
+    s21_size_t start = 0;
+    s21_size_t end = 0;
+    s21_size_t new_len = 0;
+
     while (start < src_len && s21_strchr(trim_chars, src[start]) != S21_NULL) {
       start++;
     }
@@ -39,17 +41,15 @@ void *s21_trim(const char *src, const char *trim_chars) {
     }
 
     new_len = end - start + 1;
+
+    char *result = (char *)malloc(new_len + 1);
+
+    if (result != S21_NULL) {
+      s21_strncpy(result, src + start, new_len);
+      result[new_len] = '\0';
+      tmp = result;
+    }
   }
 
-  char *result = (char *)malloc(new_len + 1);
-  if (!src_len) {
-    result = S21_NULL;
-  }
-
-  if (result != S21_NULL) {
-    s21_strncpy(result, src + start, new_len);
-    result[new_len] = '\0';
-  }
-
-  return result;
+  return tmp;
 }

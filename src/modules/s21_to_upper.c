@@ -22,10 +22,11 @@
  * @return void* Pointer to the new string with uppercase characters.
  */
 void *s21_to_upper(const char *str) {
-  char *string = (char *)calloc(s21_strlen(str) + 1, sizeof(char));
-  char *start = string;
+  char *tmp = S21_NULL;
+  if (str) {
+    char *string = (char *)calloc(s21_strlen(str) + 1, sizeof(char));
+    char *start = string;
 
-  if (string && str) {
     while (*str) {
       if (*str >= 'a' && *str <= 'z') {
         *string = *str - 32;
@@ -36,10 +37,9 @@ void *s21_to_upper(const char *str) {
       ++str;
       ++string;
     }
-  } else {
-    free(string);
-    start = S21_NULL;
+
+    tmp = start;
   }
 
-  return start;
+  return tmp;
 }

@@ -38,5 +38,6 @@
 #include "include/s21_strtok.h"
 #include "include/s21_to_lower.h"
 #include "include/s21_to_upper.h"
+#include "include/s21_trim.h"
 
 #endif  // SRC_S21_STRING_H_

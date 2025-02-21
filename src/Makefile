@@ -3,7 +3,7 @@ PROJECT_NAME      := s21_string
 CC                := gcc
 
 #====================================FLAGS=====================================#
-CFLAGS            := -Wall -Wextra -std=c11 -pedantic -g -I.
+CFLAGS            := -Wall -Wextra -std=c11 -pedantic -I.
 LDFLAGS           := -lcheck -lsubunit -lm -I.
 COV_FLAGS         := -fprofile-arcs -ftest-coverage
 VAL_FLAGS         := --tool=memcheck --leak-cheack=yes
@@ -88,8 +88,8 @@ $(GCOV_REPORT): $(REPORT_DIR) $(OBJ_DIR)/tests $(TEST_O) $(STATIC_LIB_COV)
 	./$(OBJ_DIR_COV)/report
 	gcovr $(GCOVR_TXT)
 	gcovr $(GCOVR_HTML)
-	@cat $(REPORT_DIR)/coverage.txt
-# xdg-open $(REPORT_DIR)/coverage.html
+# @cat $(REPORT_DIR)/coverage.txt
+	xdg-open $(REPORT_DIR)/coverage.html
 
 $(DVI): $(DOCS_DIR)
 	doxygen Doxyfile

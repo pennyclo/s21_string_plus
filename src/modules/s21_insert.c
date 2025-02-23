@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_insert.h"
+#include "../include/s21_insert.h"
 
 /**
  * @brief Inserts the string `str` into the string `src` at the specified index.

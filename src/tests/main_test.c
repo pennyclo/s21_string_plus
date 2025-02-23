@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/main_test.h"
+#include "main_test.h"
 
 #include <stdlib.h>
 

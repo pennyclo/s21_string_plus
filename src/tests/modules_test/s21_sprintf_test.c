@@ -10,7 +10,7 @@
  *
  */
 
-#include "tests/include_test/s21_sprintf_test.h"
+#include "../include_test/s21_sprintf_test.h"
 
 #include <stdio.h>
 #include <wchar.h>

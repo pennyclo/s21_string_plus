@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2024
  *
  */
-#include "include/s21_strncat.h"
+#include "../include/s21_strncat.h"
 
 /**
  * @brief Concatenates a specified number of characters from one string to

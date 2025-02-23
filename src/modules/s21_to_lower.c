@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_to_lower.h"
+#include "../include/s21_to_lower.h"
 
 /**
  * @brief Converts all uppercase letters in a string to lowercase.

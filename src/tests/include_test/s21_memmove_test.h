@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "include/s21_memmove.h"
+#include "../../include/s21_memmove.h"
 
 Suite *s21_memmove_case_1(void);
 

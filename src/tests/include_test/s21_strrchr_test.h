@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strrchr.h"
+#include "../../include/s21_strrchr.h"
 
 Suite *s21_strrchr_case_1(void);
 

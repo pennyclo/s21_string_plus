@@ -10,7 +10,7 @@
  *
  */
 
-#include "include/s21_sprintf.h"
+#include "../include/s21_sprintf.h"
 
 typedef struct {
   bool minus;

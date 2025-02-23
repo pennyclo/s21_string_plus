@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_memcpy.h"
+#include "../include/s21_memcpy.h"
 
 /**
  * @brief Copies `n` bytes from the memory area `src` to the memory area `dest`.

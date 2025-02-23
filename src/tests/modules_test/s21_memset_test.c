@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_memset_test.h"
+#include "../include_test/s21_memset_test.h"
 
 START_TEST(s21_memset_1) {
   char str1[50] = "Hello, World!";

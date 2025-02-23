@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strstr.h"
+#include "../../include/s21_strstr.h"
 
 Suite *s21_strstr_case_1(void);
 

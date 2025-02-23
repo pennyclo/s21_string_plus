@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strchr_test.h"
+#include "../include_test/s21_strchr_test.h"
 
 #define BUFFER_SIZE 1024
 

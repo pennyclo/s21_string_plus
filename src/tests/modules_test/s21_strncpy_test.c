@@ -9,12 +9,12 @@
  *
  */
 
-#include "tests/include_test/s21_strncpy_test.h"
+#include "../include_test/s21_strncpy_test.h"
 
 #include <check.h>
 #include <string.h>
 
-#include "include/common.h"
+#include "../../include/common.h"
 
 START_TEST(s21_strncpy_1) {
   char src[] = "Hello, World!";

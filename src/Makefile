@@ -3,8 +3,8 @@ PROJECT_NAME      := s21_string
 CC                := gcc
 
 #====================================FLAGS=====================================#
-CFLAGS            := -Wall -Wextra -std=c11 -pedantic -I.
-LDFLAGS           := -lcheck -lsubunit -lm -I.
+CFLAGS            := -Wall -Wextra -std=c11 -pedantic
+LDFLAGS           := -lcheck -lsubunit -lm 
 COV_FLAGS         := -fprofile-arcs -ftest-coverage
 VAL_FLAGS         := --tool=memcheck --leak-cheack=yes
 
@@ -44,6 +44,7 @@ MAIN_TEST         := ./tests/main_test.c
 ALL_FILES         := $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
 DEBUG             := debug
 
+all: $(STATIC_LIB) $(TEST)
 #===============================FILES_IN_MODULES===============================#
 C_FILES	          := $(shell find $(MODULES_DIR) -type f -name "*.c")
 HEADERS	          := $(shell find $(INCLUDE_DIR) -type f -name "*.h")
@@ -79,7 +80,7 @@ $(STATIC_LIB_COV): $(OBJ_DIR_COV) $(OBJ_FILES_COV)
 	ranlib $@
 
 #============================DOCUMENTATION_TARGETS=============================#
-$(TEST): clean $(OBJ_DIR)/tests $(TEST_O) $(STATIC_LIB)
+$(TEST): $(OBJ_DIR)/tests $(TEST_O) $(STATIC_LIB)
 	$(CC) $(MAIN_TEST) $(TEST_O) $(STATIC_LIB) $(LDFLAGS) -o $@
 	./$(TEST)
 

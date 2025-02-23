@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_memcmp.h"
+#include "../include/s21_memcmp.h"
 
 /**
  * @brief Compares the first n bytes of str1 and str2.

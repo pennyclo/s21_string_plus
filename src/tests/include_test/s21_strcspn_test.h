@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strcspn.h"
+#include "../../include/s21_strcspn.h"
 
 Suite *s21_strcspn_case_1(void);
 

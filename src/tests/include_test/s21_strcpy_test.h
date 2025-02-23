@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strcpy.h"
+#include "../../include/s21_strcpy.h"
 
 Suite *s21_strcpy_case_1(void);
 

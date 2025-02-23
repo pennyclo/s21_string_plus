@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strlen.h"
+#include "../include/s21_strlen.h"
 
 /**
  * @brief Calculates the length of a C-style string.

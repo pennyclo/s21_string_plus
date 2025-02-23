@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strcat.h"
+#include "../include/s21_strcat.h"
 
 /**
  * @brief Concatenates two strings.

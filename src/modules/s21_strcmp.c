@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strcmp.h"
+#include "../include/s21_strcmp.h"
 
 /**
  * @brief Compares two strings.

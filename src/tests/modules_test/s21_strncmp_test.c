@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strncmp_test.h"
+#include "../include_test/s21_strncmp_test.h"
 
 START_TEST(s21_strncmp_1) {
   const char *str1 = "This is a longer string";

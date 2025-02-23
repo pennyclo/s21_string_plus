@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "include/s21_memcmp.h"
+#include "../../include/s21_memcmp.h"
 
 Suite *s21_memcmp_case_1(void);
 

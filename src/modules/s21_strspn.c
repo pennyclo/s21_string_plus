@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strspn.h"
+#include "../include/s21_strspn.h"
 
 /**
  * @brief Calculates the length of the initial segment of `str1` consisting

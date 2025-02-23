@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_insert.h"
+#include "../../include/s21_insert.h"
 
 Suite *s21_insert_case_1(void);
 

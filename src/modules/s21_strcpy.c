@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strcpy.h"
+#include "../include/s21_strcpy.h"
 
 /**
  * @brief Copies the string pointed to by src, including the terminating null

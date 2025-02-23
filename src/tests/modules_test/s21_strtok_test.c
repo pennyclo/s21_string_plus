@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strtok_test.h"
+#include "../include_test/s21_strtok_test.h"
 
 START_TEST(s21_strtok_1) {
   char str1[] = "Hello, world!";

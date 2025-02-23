@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2024
  */
 
-#include "tests/include_test/s21_strcmp_test.h"
+#include "../include_test/s21_strcmp_test.h"
 
 START_TEST(s21_strcmp_1) {
   const char *str1 = "Hello, world";

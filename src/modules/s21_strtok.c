@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strtok.h"
+#include "../include/s21_strtok.h"
 
 /**
  * @brief Splits a string into tokens based on the specified delimiters.

@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strncmp.h"
+#include "../include/s21_strncmp.h"
 
 /**
  * @brief Compares at most the first n bytes of two strings.

@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strerror.h"
+#include "../../include/s21_strerror.h"
 
 Suite *s21_strerror_case_1(void);
 

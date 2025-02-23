@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strpbrk.h"
+#include "../../include/s21_strpbrk.h"
 
 Suite *s21_strpbrk_case_1(void);
 

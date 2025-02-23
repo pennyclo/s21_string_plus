@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strcmp.h"
+#include "../../include/s21_strcmp.h"
 
 Suite *s21_strcmp_case_1(void);
 

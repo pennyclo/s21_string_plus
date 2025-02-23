@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strerror_test.h"
+#include "../include_test/s21_strerror_test.h"
 
 #ifdef _LINUX_
 

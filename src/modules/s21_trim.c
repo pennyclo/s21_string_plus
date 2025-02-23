@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_trim.h"
+#include "../include/s21_trim.h"
 
 /**
  * @brief Removes leading and trailing characters specified in trim_chars from

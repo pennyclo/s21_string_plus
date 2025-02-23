@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_to_lower.h"
+#include "../../include/s21_to_lower.h"
 
 Suite *s21_to_lower_case_1(void);
 

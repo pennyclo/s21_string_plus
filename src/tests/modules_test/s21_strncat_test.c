@@ -9,9 +9,9 @@
  *
  */
 
-#include "tests/include_test/s21_strncat_test.h"
+#include "../include_test/s21_strncat_test.h"
 
-#include "include/common.h"
+#include "../../include/common.h"
 
 #ifdef STRNCAT
 #define BUFFER_SIZE 50

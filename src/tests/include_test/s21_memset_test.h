@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_memset.h"
+#include "../../include/s21_memset.h"
 
 Suite *s21_memset_case_1(void);
 

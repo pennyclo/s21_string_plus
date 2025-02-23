@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_memmove.h"
+#include "../include/s21_memmove.h"
 
 /**
  * @brief Copies `n` bytes from the memory area `src` to the memory area `dest`,

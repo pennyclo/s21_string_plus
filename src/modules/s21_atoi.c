@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_atoi.h"
+#include "../include/s21_atoi.h"
 
 /**
  * @brief Converts the string pointed to by the str parameter into a value of

@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_to_upper.h"
+#include "../include/s21_to_upper.h"
 
 /**
  * @brief Converts all characters in a string to uppercase.

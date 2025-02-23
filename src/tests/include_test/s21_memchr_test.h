@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "include/s21_memchr.h"
+#include "../../include/s21_memchr.h"
 
 Suite *s21_memchr_case_1(void);
 

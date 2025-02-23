@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strncpy.h"
+#include "../include/s21_strncpy.h"
 
 /**
  * @brief Searches the first occurrence of any character from the string `str2`

@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strstr.h"
+#include "../include/s21_strstr.h"
 
 /**
  * @brief Finds the first occurrence of the substring `needle` in the string

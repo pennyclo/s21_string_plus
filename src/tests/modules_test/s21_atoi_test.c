@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_atoi_test.h"
+#include "../include_test/s21_atoi_test.h"
 
 START_TEST(s21_atoi_1) {
   char str[] = "42";

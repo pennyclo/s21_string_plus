@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_to_upper.h"
+#include "../../include/s21_to_upper.h"
 
 Suite *s21_to_upper_case_1(void);
 

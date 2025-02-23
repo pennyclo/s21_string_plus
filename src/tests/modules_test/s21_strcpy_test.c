@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strcpy_test.h"
+#include "../include_test/s21_strcpy_test.h"
 
 START_TEST(s21_strcpy_1) {
   char src[] = "Hello, world!";

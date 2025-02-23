@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_memcmp_test.h"
+#include "../include_test/s21_memcmp_test.h"
 
 START_TEST(s21_memcmp_1) {
   int s21_result = s21_memcmp("hello", "hello", 5);

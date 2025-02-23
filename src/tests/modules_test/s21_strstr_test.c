@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strstr_test.h"
+#include "../include_test/s21_strstr_test.h"
 
 START_TEST(s21_strstr_1) {
   const char *haystack = "hello world";

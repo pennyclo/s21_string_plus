@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_memchr.h"
+#include "../include/s21_memchr.h"
 
 /**
  * @brief Searches for the first occurrence of the character c (unsigned type)

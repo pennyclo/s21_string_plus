@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strrchr.h"
+#include "../include/s21_strrchr.h"
 
 /**
  * @brief Locates the last occurrence of the character `c` in the string `str`.

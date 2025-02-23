@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_memmove.h"
+#include "../include/s21_memmove.h"
 
 /**
  * @brief Fills the first `n` bytes of the memory area pointed to by `str` with

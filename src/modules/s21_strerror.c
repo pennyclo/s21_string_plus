@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strerror.h"
+#include "../include/s21_strerror.h"
 
 #ifdef _LINUX_
 static const char *error_list[] = {

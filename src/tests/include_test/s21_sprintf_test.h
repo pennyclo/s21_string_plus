@@ -16,7 +16,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_sprintf.h"
+#include "../../include/s21_sprintf.h"
 
 Suite *s21_sprintf_case_1(void);
 

@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_trim.h"
+#include "../../include/s21_trim.h"
 
 Suite *s21_trim_case_1(void);
 

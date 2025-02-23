@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strchr.h"
+#include "../../include/s21_strchr.h"
 
 Suite *s21_strchr_case_1(void);
 void comparison_func(char *dst, int ch);

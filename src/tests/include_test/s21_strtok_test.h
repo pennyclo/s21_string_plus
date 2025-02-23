@@ -15,7 +15,7 @@
 #include <check.h>
 #include <string.h>
 
-#include "include/s21_strtok.h"
+#include "../../include/s21_strtok.h"
 
 Suite *s21_strtok_case_1(void);
 

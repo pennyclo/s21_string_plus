@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_memcpy_test.h"
+#include "../include_test/s21_memcpy_test.h"
 
 START_TEST(s21_memcpy_1) {
   char src[] = "Hello, world!";

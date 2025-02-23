@@ -9,7 +9,7 @@
  *
  */
 
-#include "include/s21_strncpy.h"
+#include "../include/s21_strncpy.h"
 
 /**
  * @brief Copies up to n characters from the source string to the destination

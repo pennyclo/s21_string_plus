@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strpbrk_test.h"
+#include "../include_test/s21_strpbrk_test.h"
 
 START_TEST(s21_strpbrk_1) {
   const char *str1 = "";

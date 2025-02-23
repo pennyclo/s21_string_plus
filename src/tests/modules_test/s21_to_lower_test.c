@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_to_lower_test.h"
+#include "../include_test/s21_to_lower_test.h"
 
 START_TEST(s21_to_lower_1) {
   char src[] = "HELLO";

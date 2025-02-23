@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strlen_test.h"
+#include "../include_test/s21_strlen_test.h"
 
 START_TEST(s21_strlen_1) {
   const char *str = "";

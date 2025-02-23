@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "include/s21_memcpy.h"
+#include "../../include/s21_memcpy.h"
 
 Suite *s21_memcpy_case_1(void);
 

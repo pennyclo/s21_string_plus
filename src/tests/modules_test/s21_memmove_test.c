@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_memmove_test.h"
+#include "../include_test/s21_memmove_test.h"
 
 START_TEST(s21_memmove_1) {
   char src[] = "Hello, world!";

@@ -9,7 +9,7 @@
  *
  */
 
-#include "tests/include_test/s21_strcspn_test.h"
+#include "../include_test/s21_strcspn_test.h"
 
 START_TEST(s21_strcspn_1) {
   const char *str1 = "";

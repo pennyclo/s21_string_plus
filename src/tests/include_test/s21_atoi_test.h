@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "include/s21_atoi.h"
+#include "../../include/s21_atoi.h"
 
 Suite *s21_atoi_case_1(void);
 

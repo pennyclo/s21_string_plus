@@ -13,7 +13,6 @@
 
 #include "../../include/common.h"
 
-#ifdef STRNCAT
 #define BUFFER_SIZE 50
 
 START_TEST(s21_strncat_1) {
@@ -306,4 +305,3 @@ Suite *s21_strncat_case_1(void) {
 
   return string;
 }
-#endif  // STRNCAT

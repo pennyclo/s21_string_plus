@@ -1,18 +1,16 @@
 /**
- * @file s21_size_t.h
+ * @file common.h
  * @author Alexandr Afanasev (https://github.com/pennyclo)
- * @brief Type definition for s21_size_t.
+ * @brief General definitions and types for a project.
  * @version 1.0
- * @date 2024-12-07
+ * @date 2025-02-23
  *
- * @copyright Copyright (c) 2024
+ * @copyright Copyright (c) 2025
  *
  */
 
 #ifndef SRC_INCLUDE_COMMON_H_
 #define SRC_INCLUDE_COMMON_H_
-
-#define STRNCAT
 
 #define S21_NULL ((void*)0)
 typedef unsigned long s21_size_t;

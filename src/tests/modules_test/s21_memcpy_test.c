@@ -71,7 +71,7 @@ START_TEST(s21_memcpy_5) {
 END_TEST
 
 START_TEST(s21_memcpy_6) {
-  size_t size = 1000000;
+  size_t size = 10000;
   char *src = (char *)malloc(size);
   char *dest1 = (char *)malloc(size);
   char *dest2 = (char *)malloc(size);

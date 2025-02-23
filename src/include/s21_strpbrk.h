@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_STRPBRK_H_
 #define SRC_INCLUDE_S21_STRPBRK_H_
 
-#include "include/common.h"
+#include "common.h"
 
 char *s21_strpbrk(const char *str1, const char *str2);
 

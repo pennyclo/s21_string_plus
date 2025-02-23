@@ -14,8 +14,8 @@
 
 #include <stdlib.h>
 
-#include "include/common.h"
-#include "include/s21_strlen.h"
+#include "common.h"
+#include "s21_strlen.h"
 
 void *s21_to_upper(const char *str);
 

@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_STRCPY_H_
 #define SRC_INCLUDE_S21_STRCPY_H_
 
-#include "include/common.h"
+#include "common.h"
 
 char *s21_strcpy(char *dest, const char *src);
 

@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_STRCHR_H_
 #define SRC_INCLUDE_S21_STRCHR_H_
 
-#include "include/common.h"
+#include "common.h"
 
 char *s21_strchr(const char *str, int c);
 

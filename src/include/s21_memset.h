@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_MEMSET_H_
 #define SRC_INCLUDE_S21_MEMSET_H_
 
-#include "include/common.h"
+#include "common.h"
 
 void *s21_memset(void *str, int c, s21_size_t n);
 

@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_STRCMP_H_
 #define SRC_INCLUDE_S21_STRCMP_H_
 
-#include "include/common.h"
+#include "common.h"
 
 int s21_strcmp(const char *str1, const char *str2);
 

@@ -12,8 +12,8 @@
 #ifndef SRC_INCLUDE_S21_STRNCAT_H_
 #define SRC_INCLUDE_S21_STRNCAT_H_
 
-#include "include/common.h"
-#include "include/s21_strlen.h"
+#include "common.h"
+#include "s21_strlen.h"
 
 char *s21_strncat(char *dest, const char *src, s21_size_t n);
 

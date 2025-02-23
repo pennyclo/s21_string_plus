@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_ATOI_H_
 #define SRC_INCLUDE_S21_ATOI_H_
 
-#include "include/common.h"
+#include "common.h"
 
 int s21_atoi(const char *s);
 

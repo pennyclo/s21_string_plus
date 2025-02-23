@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_STRLEN_H_
 #define SRC_INCLUDE_S21_STRLEN_H_
 
-#include "include/common.h"
+#include "common.h"
 
 s21_size_t s21_strlen(const char *str);
 

@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_MEMCHR_H_
 #define SRC_INCLUDE_S21_MEMCHR_H_
 
-#include "include/common.h"
+#include "common.h"
 
 void *s21_memchr(const void *str, int c, s21_size_t n);
 

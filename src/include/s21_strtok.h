@@ -12,9 +12,9 @@
 #ifndef SRC_INCLUDE_S21_STRTOK_H_
 #define SRC_INCLUDE_S21_STRTOK_H_
 
-#include "include/common.h"
-#include "include/s21_strpbrk.h"
-#include "include/s21_strspn.h"
+#include "common.h"
+#include "s21_strpbrk.h"
+#include "s21_strspn.h"
 
 char *s21_strtok(char *str, const char *delim);
 

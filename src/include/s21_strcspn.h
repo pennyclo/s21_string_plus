@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_STRCSPN_H_
 #define SRC_INCLUDE_S21_STRCSPN_H_
 
-#include "include/common.h"
+#include "common.h"
 
 s21_size_t s21_strcspn(const char *str1, const char *str2);
 

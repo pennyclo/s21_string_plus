@@ -22,15 +22,15 @@
 #include <stdlib.h>
 #include <wchar.h>
 
-#include "include/common.h"
-#include "include/s21_atoi.h"
-#include "include/s21_memcpy.h"
-#include "include/s21_memmove.h"
-#include "include/s21_memset.h"
-#include "include/s21_strcat.h"
-#include "include/s21_strcpy.h"
-#include "include/s21_strcspn.h"
-#include "include/s21_strncpy.h"
+#include "common.h"
+#include "s21_atoi.h"
+#include "s21_memcpy.h"
+#include "s21_memmove.h"
+#include "s21_memset.h"
+#include "s21_strcat.h"
+#include "s21_strcpy.h"
+#include "s21_strcspn.h"
+#include "s21_strncpy.h"
 
 int s21_sprintf(char *str, const char *format, ...);
 

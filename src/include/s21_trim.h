@@ -14,10 +14,10 @@
 
 #include <stdlib.h>
 
-#include "include/common.h"
-#include "include/s21_strchr.h"
-#include "include/s21_strlen.h"
-#include "include/s21_strncpy.h"
+#include "common.h"
+#include "s21_strchr.h"
+#include "s21_strlen.h"
+#include "s21_strncpy.h"
 
 void *s21_trim(const char *src, const char *trim_chars);
 

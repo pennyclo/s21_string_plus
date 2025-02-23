@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_MEMCMP_H_
 #define SRC_INCLUDE_S21_MEMCMP_H_
 
-#include "include/common.h"
+#include "common.h"
 
 int s21_memcmp(const void *str1, const void *str2, s21_size_t n);
 

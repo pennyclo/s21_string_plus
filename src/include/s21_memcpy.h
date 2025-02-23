@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_S21_MEMCPY_H_
 #define SRC_INCLUDE_S21_MEMCPY_H_
 
-#include "include/common.h"
+#include "common.h"
 
 void *s21_memcpy(void *dest, const void *src, s21_size_t n);
 

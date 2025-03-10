@@ -6,7 +6,7 @@ CC                := gcc
 CFLAGS            := -Wall -Wextra -std=c11 -pedantic
 LDFLAGS           := -lcheck -lsubunit -lm 
 COV_FLAGS         := -fprofile-arcs -ftest-coverage
-VAL_FLAGS         := --tool=memcheck --leak-cheack=yes
+VAL_FLAGS         := --tool=memcheck --leak-check=yes --track-origins=yes
 
 PLATFORM          ?= LINUX
 
@@ -39,6 +39,7 @@ TEST              := test
 GCOV_REPORT       := gcov_report
 STATIC_LIB_COV    := $(PROJECT_NAME)_gcovr.a
 DVI               := dvi
+VAL               := val
 
 MAIN_TEST         := ./tests/main_test.c
 ALL_FILES         := $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
@@ -83,6 +84,9 @@ $(STATIC_LIB_COV): $(OBJ_DIR_COV) $(OBJ_FILES_COV)
 $(TEST): $(OBJ_DIR)/tests $(TEST_O) $(STATIC_LIB)
 	$(CC) $(MAIN_TEST) $(TEST_O) $(STATIC_LIB) $(LDFLAGS) -o $@
 	./$(TEST)
+
+$(VAL): clean $(TEST) 
+	@valgrind $(VAL_FLAGS) ./$(TEST)
 
 $(GCOV_REPORT): $(REPORT_DIR) $(OBJ_DIR)/tests $(TEST_O) $(STATIC_LIB_COV)
 	$(CC) $(MAIN_TEST) $(TEST_O) $(STATIC_LIB_COV) $(LDFLAGS) $(COV_FLAGS) -o $(OBJ_DIR_COV)/report
